@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import { Main } from '../Pages';
+import { Setting, Login, Result } from '../Pages';
 
 const Router : React.FC = () => (
 	<Switch>
-		<Route path="/" component={Main} />
+		<Route exact path="/" component={Setting} />
+		<Route exact path="/login" component={Login} />
+		<Route exact path="/result" component={Result} />
 	</Switch>
 );
 
