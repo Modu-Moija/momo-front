@@ -1,12 +1,34 @@
 import React from 'react';
 import { Grid, Input, NativeSelect, FormControl } from "@material-ui/core";
 import { useState } from 'react';
+import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 const Setting = () => {
 	const [title, setTitle] = useState("");
 	const [start, setStart] = useState("");
 	const [end, setEnd] = useState("");
 	const [gap, setGap] = useState("");
+	const [state, setState] = useState({
+		selection1: {
+			startDate: addDays(new Date(), 0),
+			endDate: addDays(new Date(), 0), // null이 왜 안되지
+			key: 'selection1',
+		},
+		selection2: {
+			startDate: addDays(new Date(), 0), // null이 왜 안되지
+			endDate: addDays(new Date(), 0), // null이 왜 안되지
+			key: 'selection2',
+		},
+		selection3: {
+			startDate: addDays(new Date(), 0), // null이 왜 안되지
+			endDate: addDays(new Date(), 0), // null이 왜 안되지
+			key: 'selection3',
+			autoFocus: false
+		}
+	});
   
 	// 일정이름
 	const handleTitleChange = (e : any) => {
@@ -63,7 +85,10 @@ const Setting = () => {
 			</Grid>
 			<Grid className="create-setting">
 				<Grid className="create-calender">
-					Calender
+					<DateRange
+						onChange={item => setState({ ...state, ...item })}
+						ranges={[state.selection1, state.selection2, state.selection3]}
+					/>;
 				</Grid>
 				<Grid className="create-content">
 					{/* 일정이름 */}
