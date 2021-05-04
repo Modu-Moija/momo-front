@@ -27,14 +27,17 @@ const Setting = () => {
 	));
 
 	const handleStartChange = (e : any) => {
-		setStart(e.target.value)
-		// console.log(e.target.value);
-		console.log(e.target);
+		setStart(e.target.value);
 	}
   
 	const handleEndChange = (e : any) => {
 		setEnd(e.target.value)
 		// console.log(e.target.value);
+		// console.log(parseInt(e.target.value));
+		console.log(`${start} and ${e.target.value}`);
+		if (parseInt(start)>=parseInt(e.target.value)) {
+			alert("시간을 다시 설정해주세요.");
+		}
 	}
 
 	const handleGapChange = (e : any) => {
@@ -61,12 +64,6 @@ const Setting = () => {
 			<Grid className="create-setting">
 				<Grid className="create-calender">
 					Calender
-					{/* <DateRange
-          editableDateInputs={true}
-          onChange={item => setState([item.selection])}
-          moveRangeOnFirstSelection={false}
-          ranges={state}
-        />			 */}
 				</Grid>
 				<Grid className="create-content">
 					{/* 일정이름 */}
