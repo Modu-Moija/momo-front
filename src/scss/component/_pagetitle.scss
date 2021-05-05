@@ -1,0 +1,22 @@
+@import '../base/font';
+
+.page-title{
+	display: flex;
+	align-items: center;
+	font-family: 'Dabanggu', sans-serif;
+	span{
+		margin-right: 5px;
+	}
+	div{
+		display: flex;
+		flex-direction: column;
+		.small-title{
+			font-size: 0.7rem;
+			margin-bottom: 7px;
+			strong{
+				text-decoration: underline;
+			}
+		}
+	}
+
+}

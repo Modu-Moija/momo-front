@@ -9,18 +9,29 @@ header{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 36px;
+	padding: 0 15px;
 	@include desktop(){
 		height: 70px;
 		padding: 0 80px;
 	}
 	.title{
 		font-family: 'Dabanggu', sans-serif;
-		font-size: 2rem;
+		font-size: 1.4rem;
 		font-weight: 400;
 		color: #{$purple};
+		@include desktop(){
+			font-size: 2rem;
+		}
+	}
+	.share-con{
+		display: flex;
 	}
 	.share-con>button{
+		font-size: 0.7rem;
 		text-decoration: underline;
+		@include desktop(){
+			font-size: 1rem;
+		}
+		flex-shrink: 0;
 	}
 }
