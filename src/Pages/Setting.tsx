@@ -1,4 +1,5 @@
 import React from 'react';
+import "../scss/pages/setting.scss";
 
 const Setting = () => {
 	// 일정 생성 화면

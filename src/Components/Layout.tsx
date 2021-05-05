@@ -4,7 +4,7 @@ import { Header } from '.';
 const Layout : React.FC = ({children}) => {
 	const a = 1;
 	return (
-		<div>
+		<div id="wrap">
 			<Header />
 			<div id="body-wrap">
 				{children}
