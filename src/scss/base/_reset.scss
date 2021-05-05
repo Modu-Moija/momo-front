@@ -1,3 +1,7 @@
+@font-face {
+	font-family: "Dabanggu";
+	src: url(Dabanggu.ttf);
+}
 *{
 	box-sizing: border-box;
 	position: relative;
@@ -6,4 +10,5 @@ html, body, #wrap{
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	font-family: 'Dabanggu', sans-serif;
 }
