@@ -1,5 +1,7 @@
 @import "../base/variable";
 @import "../base/mixin";
+@import "../base/font";
+
 
 header{
 	height: 50px;
@@ -13,6 +15,7 @@ header{
 		padding: 0 80px;
 	}
 	.title{
+		font-family: 'Dabanggu', sans-serif;
 		font-size: 2rem;
 		font-weight: 400;
 		color: #{$purple};

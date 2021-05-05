@@ -1,7 +1,5 @@
-@font-face {
-	font-family: "Dabanggu";
-	src: url(Dabanggu.ttf);
-}
+@import "./font";
+
 *{
 	box-sizing: border-box;
 	position: relative;
@@ -10,7 +8,7 @@ html, body, #wrap{
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	font-family: 'Dabanggu', sans-serif;
+	font-family: 'noto-sans', sans-serif;
 }
 button{
 	background-color: transparent;
