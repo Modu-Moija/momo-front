@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Input, NativeSelect, FormControl } from "@material-ui/core";
+//import {  } from "@material-ui/core";
 import { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
@@ -79,32 +79,32 @@ const Setting = () => {
 	//                    -> create-time-finish
 	//               -> create-gap
 
-		<Grid className="crete-container">
-			<Grid className="create-title">
+		<div className="crete-container">
+			<div className="create-title">
 				<h2>언제가 좋을까요?🤔</h2>
-			</Grid>
-			<Grid className="create-setting">
-				<Grid className="create-calender">
+			</div>
+			<div className="create-setting">
+				<div className="create-calender">
 					<DateRange
 						onChange={item => setState({ ...state, ...item })}
 						ranges={[state.selection1, state.selection2, state.selection3]}
 					/>;
-				</Grid>
-				<Grid className="create-content">
+				</div>
+				<div className="create-content">
 					{/* 일정이름 */}
-					<Grid className="create-plan-name">
-						<Input 
+					<div className="create-plan-name">
+						<input 
 							placeholder = "일정 이름을 작성해주세요."
 							value={title}
 							name="title"
 							onChange = {handleTitleChange}
 						/>
-					</Grid>
+					</div>
 
 					{/* 시간 선택 */}
-					<Grid className="create-time">
-						<FormControl className="create-time-start">
-							<NativeSelect
+					<div className="create-time">
+						<form className="create-time-start">
+							<select
 								id="start"
 								name="start"
 								value={start}
@@ -117,11 +117,11 @@ const Setting = () => {
 								{amTimeList}
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
-							</NativeSelect>
-						</FormControl>
-						<Grid>~</Grid>
-						<FormControl className="create-time-finish">
-							<NativeSelect
+							</select>
+						</form>
+						<div>~</div>
+						<form className="create-time-finish">
+							<select
 								id="end"
 								name="end"
 								value={end}
@@ -134,14 +134,14 @@ const Setting = () => {
 								{amTimeList}
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
-							</NativeSelect>
-						</FormControl>
-					</Grid>
+							</select>
+						</form>
+					</div>
 
 					{/* 간격 선택 */}
-					<Grid className="create-gap">
-						<FormControl>
-							<NativeSelect
+					<div className="create-gap">
+						<form>
+							<select
 								id="gap"
 								name="gap"
 								value={gap}
@@ -153,13 +153,13 @@ const Setting = () => {
 								<option value={15}>15분</option>
 								<option value={30}>30분</option>
 								<option value={60}>1시간</option>
-							</NativeSelect>
-						</FormControl>
-						<Grid>&nbsp;&nbsp;단위</Grid>
-					</Grid>
-				</Grid>
-			</Grid>
-		</Grid>
+							</select>
+						</form>
+						<div>&nbsp;&nbsp;단위</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 };
 
