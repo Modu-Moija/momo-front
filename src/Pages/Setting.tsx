@@ -5,6 +5,7 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import "../scss/pages/setting.scss";
 
 const Setting = () => {
 	const [title, setTitle] = useState("");
@@ -73,37 +74,43 @@ const Setting = () => {
 	//     -> create-setting
 	//          -> crete-calender
 	//          -> crete-content
-	//               -> crete-plan-name
-	//               -> crete-time
-	//                    -> create-time-start
-	//                    -> create-time-finish
-	//               -> create-gap
+	//               -> create-content-box
+	//                    -> crete-plan-name
+	//                    -> crete-time
+	//                         -> create-time-start
+	//                         -> create-time-finish
+	//                    -> create-gap
+	//                    -> create-option
+	//                         -> create-center
+	//                         -> create-online
+	//               -> create-create-btn
 
-		<div className="crete-container">
+
+		<div className="create-container">
 			<div className="create-title">
-				<h2>언제가 좋을까요?🤔</h2>
+				<h1>언제가 좋을까요?🤔</h1>
 			</div>
 			<div className="create-setting">
 				<div className="create-calender">
 					<DateRange
 						onChange={item => setState({ ...state, ...item })}
 						ranges={[state.selection1, state.selection2, state.selection3]}
-					/>;
+					/>
 				</div>
 				<div className="create-content">
-					{/* 일정이름 */}
-					<div className="create-plan-name">
-						<input 
-							placeholder = "일정 이름을 작성해주세요."
-							value={title}
-							name="title"
-							onChange = {handleTitleChange}
-						/>
-					</div>
+					<div className="create-content-box">
+						{/* 일정이름 */}
+						<div className="create-plan-name">
+							<input 
+								placeholder = "일정 이름을 작성해주세요."
+								value={title}
+								name="title"
+								onChange = {handleTitleChange}
+							/>
+						</div>
 
-					{/* 시간 선택 */}
-					<div className="create-time">
-						<form className="create-time-start">
+						{/* 시간 선택 */}
+						<div className="create-time">
 							<select
 								id="start"
 								name="start"
@@ -118,9 +125,7 @@ const Setting = () => {
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
 							</select>
-						</form>
-						<div>~</div>
-						<form className="create-time-finish">
+							<div>~</div>
 							<select
 								id="end"
 								name="end"
@@ -135,12 +140,10 @@ const Setting = () => {
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
 							</select>
-						</form>
-					</div>
+						</div>
 
-					{/* 간격 선택 */}
-					<div className="create-gap">
-						<form>
+						{/* 간격 선택 */}
+						<div className="create-gap">
 							<select
 								id="gap"
 								name="gap"
@@ -154,8 +157,22 @@ const Setting = () => {
 								<option value={30}>30분</option>
 								<option value={60}>1시간</option>
 							</select>
-						</form>
-						<div>&nbsp;&nbsp;단위</div>
+							<div>&nbsp;&nbsp;단위</div>
+						</div>
+
+						<div className="create-option">
+							<div className="form-check form-switch create-center">
+								<input className="form-check-input" type="checkbox" id="center" />
+								<label className="form-check-label" htmlFor="center">중간지점도 볼래요!</label>
+							</div>
+							<div className="form-check form-switch create-online">
+								<input className="form-check-input" type="checkbox" id="online" />
+								<label className="form-check-label" htmlFor="online">화상회의로 진행할래요!</label>
+							</div>
+						</div>
+					</div>
+					<div className="create-create-btn">
+						<button>일정 생성하기</button>
 					</div>
 				</div>
 			</div>
