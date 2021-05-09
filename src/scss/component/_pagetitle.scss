@@ -5,7 +5,8 @@
 	align-items: center;
 	font-family: 'Dabanggu', sans-serif;
 	span{
-		margin-right: 5px;
+		margin-right: 15px;
+		font-size: 1.2rem;
 	}
 	div{
 		display: flex;
@@ -16,6 +17,9 @@
 			strong{
 				text-decoration: underline;
 			}
+		}
+		.title-string{
+			font-size: 1.2rem;
 		}
 	}
 
