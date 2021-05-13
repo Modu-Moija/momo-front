@@ -19,7 +19,9 @@ button{
 }
 #body-wrap{
     overflow: hidden;
-	padding: 20px;
 	width : 100%;
 	min-height: 100vh;
+	&>div{
+		padding: 20px;
+	}
 }
