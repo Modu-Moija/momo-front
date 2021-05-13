@@ -30,7 +30,7 @@ const Result = () => {
 	}
 
 	return (
-		<>
+		<div id="result-wrap">
 			<div id="result-calendar-con">
 				<div>
 					<PageTitle
@@ -63,7 +63,7 @@ const Result = () => {
 					/>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 };
 
