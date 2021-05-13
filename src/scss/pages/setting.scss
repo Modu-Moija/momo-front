@@ -12,9 +12,14 @@
       flex-direction: row;
       justify-content: space-around;
     }
-    // .create-calender {
-
-    // }
+    .create-calender {
+      .rdrDateDisplayWrapper {
+        display: none;
+      }
+      .rdrDayToday .rdrDayNumber span:after {
+        background: #{$purple};
+      }
+    }
     .create-content {
       display: flex;
       flex-direction: column;
@@ -50,8 +55,8 @@
         .create-time {
           display: flex;
           justify-content: center;
-          #start,
-          #end {
+          .start,
+          .end {
             margin-bottom: 2rem;
             width: 7rem;
             height: 40px;
@@ -66,7 +71,7 @@
           display: flex;
           justify-content: center;
           align-items: baseline;
-          #gap {
+          .gap {
             width: 7rem;
             height: 40px;
             border: 1.7px solid #{$light_gray};
@@ -129,7 +134,6 @@
       .create-create-btn {
         display: flex;
         justify-content: flex-end;
-        // align-content: flex-end;
         button {
           width: 9rem;
           height: 40px;

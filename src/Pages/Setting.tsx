@@ -12,24 +12,25 @@ const Setting = () => {
 	const [start, setStart] = useState("");
 	const [end, setEnd] = useState("");
 	const [gap, setGap] = useState("");
-	const [state, setState] = useState({
-		selection1: {
-			startDate: addDays(new Date(), 0),
-			endDate: addDays(new Date(), 0), // null이 왜 안되지
-			key: 'selection1',
-		},
-		selection2: {
-			startDate: addDays(new Date(), 0), // null이 왜 안되지
-			endDate: addDays(new Date(), 0), // null이 왜 안되지
-			key: 'selection2',
-		},
-		selection3: {
-			startDate: addDays(new Date(), 0), // null이 왜 안되지
-			endDate: addDays(new Date(), 0), // null이 왜 안되지
-			key: 'selection3',
-			autoFocus: false
+	const [state, setState] = useState(
+		{
+			selection1: {
+				startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
+				endDate: new Date(), 
+				key: 'selection1', // 변수
+			},
+			selection2: {
+				startDate: new Date(),
+				endDate: new Date(), 
+				key: 'selection2',
+			},
+			selection3: {
+				startDate: new Date(),
+				endDate: new Date(), 
+				key: 'selection3',
+			}
 		}
-	});
+	);
   
 	// 일정이름
 	const handleTitleChange = (e : any) => {
@@ -60,12 +61,21 @@ const Setting = () => {
 		console.log(`${start} and ${e.target.value}`);
 		if (parseInt(start)>=parseInt(e.target.value)) {
 			alert("시간을 다시 설정해주세요.");
+			setEnd("");
 		}
 	}
 
 	const handleGapChange = (e : any) => {
 		setGap(e.target.value)
 		// console.log(e.target.value);
+	}
+
+
+	const handleDisabled = (date:Date) => {
+		const now = new Date()
+		if (date > new Date(now.setDate(now.getDate() - 1))) // 오늘 날짜가 더 이전이면 활성화
+			return false; // 활성화
+		return true; // 아니면 비활성화
 	}
 
 	return (
@@ -95,6 +105,9 @@ const Setting = () => {
 					<DateRange
 						onChange={item => setState({ ...state, ...item })}
 						ranges={[state.selection1, state.selection2, state.selection3]}
+						rangeColors={["#7E84F3", "#7E84F3", "#7E84F3"]}
+						color={"#7E84F3"}
+						disabledDay={handleDisabled}
 					/>
 				</div>
 				<div className="create-content">
@@ -112,6 +125,7 @@ const Setting = () => {
 						{/* 시간 선택 */}
 						<div className="create-time">
 							<select
+								className="start"
 								id="start"
 								name="start"
 								value={start}
@@ -127,6 +141,7 @@ const Setting = () => {
 							</select>
 							<div>~</div>
 							<select
+								className="end"
 								id="end"
 								name="end"
 								value={end}
@@ -145,6 +160,7 @@ const Setting = () => {
 						{/* 간격 선택 */}
 						<div className="create-gap">
 							<select
+								className="gap"
 								id="gap"
 								name="gap"
 								value={gap}
