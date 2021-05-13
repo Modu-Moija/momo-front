@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { PracticeContextProvider } from './Model/PracticeModel';
+import { ArrowContextProvider } from './Model/ArrowModel';
 import Router from './Router';
 
 const Provider : React.FC = () => {
 	const a = 1;
 	return (
-		<PracticeContextProvider>
+		<ArrowContextProvider>
 			<Router />
-		</PracticeContextProvider>
+		</ArrowContextProvider>
 	);
 };
 

@@ -1,5 +1,6 @@
 import React, { Dispatch, useState } from 'react';
 import { DateRange, OnChangeProps } from 'react-date-range';
+import "../scss/component/_calendar.scss";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 

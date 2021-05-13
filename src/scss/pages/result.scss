@@ -1,7 +1,63 @@
 @import "../base/reset";
+@import "../base/variable";
+@import "../base/font";
 
-#result-wrap{
+#result-calendar-con{
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-    margin: 20px;
+	&>div{
+		margin-bottom: 15px;
+	}
+	.result-table{
+		&>div{
+			width: 100%;
+		}
+	}
+	.btn-con{
+		display: flex;
+		justify-content: flex-end;
+		a{
+			text-decoration: none;
+		}
+		button{
+			background-color: $purple;
+			color: white;
+			box-shadow: 3px 3px 5px $shadow_gray;
+			font-family: 'Dabanggu', 'noto-sans', sans-serif;
+		}
+	}
+}
+
+@keyframes result-slide {
+	0%{
+		left: 100%;
+	}
+	100%{
+		left: 0;
+	}
+}
+@keyframes result-slide-rev {
+	0%{
+		left: 0%;
+	}
+	100%{
+		left: 100%;
+	}
+}
+// upper result page
+#result-page{
+	padding: 20px;
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	top:0;
+	left: 100%;
+	background-color: white;
+	&.visible{
+		animation: result-slide 0.7s ease-in-out forwards;
+	}
+	&.unvisible{
+		animation: result-slide-rev 0.7s ease-in-out forwards;
+	}
 }

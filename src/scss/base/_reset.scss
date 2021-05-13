@@ -9,10 +9,17 @@ html, body, #wrap{
 	padding: 0;
 	width: 100%;
 	font-family: 'noto-sans', sans-serif;
+	min-height: 100vh;
 }
 button{
 	background-color: transparent;
 	outline: none;
 	border: none;
 	cursor: pointer;
+}
+#body-wrap{
+    overflow: hidden;
+	padding: 20px;
+	width : 100%;
+	min-height: 100vh;
 }
