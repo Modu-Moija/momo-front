@@ -40,6 +40,9 @@ const Result = () => {
 					// todo : 일정 생성이면 생성, 설정이면 정보 및 버튼
 				}
 			</div>
+			<div className="btn-con">
+				
+			</div>
 		</div>
 	)
 };
