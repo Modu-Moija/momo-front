@@ -51,7 +51,7 @@ const Result = () => {
 					}
 				</div>
 				<div className="btn-con">
-					<Button variant="contained" onClick={showResult}>
+					<Button variant="contained" color="primary" onClick={showResult}>
 						우리의 약속시간은?
 					</Button>
 				</div>
