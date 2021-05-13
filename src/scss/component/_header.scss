@@ -1,19 +1,19 @@
 @import "../base/variable";
 @import "../base/mixin";
 
-header{
-	height: 50px;
-	box-shadow: 0 0 5px #{$shadow_gray};
-	display: flex;
-	align-items: center;
-	padding: 0 36px;
-	@include desktop(){
-		height: 70px;
-		padding: 0 80px;
-	}
-	.title{
-		font-size: 2rem;
-		font-weight: 600;
-		color: #{$purple};
-	}
+header {
+  height: 50px;
+  box-shadow: 0 0 5px #{$shadow_gray};
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  @include desktop() {
+    height: 70px;
+    padding: 0 80px;
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #{$purple};
+  }
 }
