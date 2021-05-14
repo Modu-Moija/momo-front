@@ -14,15 +14,10 @@ const Result = () => {
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
 
-	const [dateRange, setDateRange] = useState<DateRangeType>({
-		startDate : new Date(),
-		endDate : new Date(),
-		key: 'selection'
-	});
+	const [date, setDate] = useState<Date>(new Date());
 
-	const handleDateRange = (range : any) => { // 나중에 type 정확히 하기
-		const changeRange : DateRangeType = range[dateRange.key];
-		setDateRange(changeRange);
+	const handleDateClick = (datePara : any) => { // 나중에 type 정확히 하기
+		setDate(datePara);
 	}
 
 	const showResult = () => {
@@ -40,8 +35,8 @@ const Result = () => {
 				</div>
 				<div className="result-table">
 					<CalendarComponent
-						dateRange = {dateRange}
-						handleDateRange = {handleDateRange}
+						date = {date}
+						handleDateClick = {handleDateClick}
 					/>
 				</div>
 				<div>
