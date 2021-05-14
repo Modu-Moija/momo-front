@@ -39,9 +39,6 @@
 }
 
 @keyframes result-slide {
-	0%{
-		left: 100%;
-	}
 	100%{
 		left: 0;
 	}
@@ -56,6 +53,7 @@
 }
 // upper result page
 #result-page{
+	z-index: 10;
 	padding: 20px;
 	height: 100vh;
 	position: absolute;
@@ -71,4 +69,22 @@
 	&.unvisible{
 		animation: result-slide-rev 0.7s ease-in-out forwards;
 	}
+}
+
+// ? button
+#faq{
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    font-weight: 600;
+    width: 30px;
+    height: 30px;
+    padding: 1rem;
+    border-radius: 10rem;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 5px $shadow_gray;
+    font-size: 1.3rem;
 }

@@ -1,10 +1,8 @@
-import React, { Dispatch, useState } from 'react';
+import React from 'react';
 import { Calendar, OnChangeProps } from 'react-date-range';
 import "../scss/component/_calendar.scss";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-
-import { DateRangeType } from '../Main/Type';
 
 type Props = {
 	date: Date // useState state
