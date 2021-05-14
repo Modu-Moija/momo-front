@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from '.';
 
 const Layout : React.FC = ({children}) => {
-	const a = 1;
 	return (
 		<div id="wrap">
 			<Header />
