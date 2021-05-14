@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
 
-import { PageTitle, CalendarComponent } from '../Components';
+import { PageTitle, CalendarComponent, ResultTab } from '../Components';
 import { DateRangeType, DateRangeParaType } from '../Main/Type';
 import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
 
@@ -56,6 +56,7 @@ const Result = () => {
 					<PageTitle
 						title="최종 약속 시간"
 					/>
+					<ResultTab />
 				</div>
 			</div>
 			<button id="faq">?</button>

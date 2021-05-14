@@ -1,0 +1,36 @@
+@import "../base/variable";
+@import "../base/font";
+
+.MuiTabs-flexContainer {
+    width: 100%;
+    justify-content: space-between;
+}
+.MuiTab-root{
+	margin-top: 1rem!important;
+	max-width: initial!important;
+	min-width: initial!important;
+	width: 48%!important;
+    border-radius: 10px!important;
+    border: 2px solid $purple!important;
+    border-bottom: 0!important;
+	padding-bottom: 30px!important;
+}
+.PrivateTabIndicator-colorSecondary-1, .PrivateTabIndicator-colorPrimary-2, .PrivateTabIndicator-colorSecondary-3{
+	display: none!important;
+}
+.MuiTab-textColorInherit{
+	opacity: 1!important;
+	font-family: 'Dabanggu', 'noto-sans', sans-serif!important;
+    font-size: 1rem!important;
+}
+.MuiTab-textColorInherit.Mui-selected{
+    background-color: $purple;
+    color: white;
+}
+
+.tab-panel{
+    background-color: white;
+    z-index: 3;
+    margin-top: -1.5rem;
+    border: 2px solid $purple;
+}
