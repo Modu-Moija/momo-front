@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../scss/pages/login.scss";
 import { Button, Checkbox } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 	// 로그인 화면
@@ -10,8 +11,8 @@ const Login = () => {
 	}
 	return (
 		<div id="login-wrap">
-			<div>
-				로고
+			<div className="logo-img">
+				<img src="/logo.png" alt="로고 이미지"/>
 			</div>
 			<div className="info">
 				<p>닉네임은 해당 일정에서만 사용됩니다!</p>
@@ -31,7 +32,7 @@ const Login = () => {
 				</div>
 			</div>
 			<div className="btn-con">
-				<Button variant="contained" color="primary">로그인</Button>
+				<Link to="/result"><Button variant="contained" color="primary">로그인</Button></Link>
 			</div>
 		</div>
 	)
