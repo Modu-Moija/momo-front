@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, AppBar, Box } from '@material-ui/core';
 import "../scss/component/_resulttab.scss";
+import { RankCard } from '.';
 
 type Props = {
 	children : React.ReactNode,
@@ -45,13 +46,13 @@ const ResultTab = () => {
 				tab = {tabNumber}
 				index = {0}
 			>
-				hi
+				<RankCard />
 			</TabPanel>
 			<TabPanel
 				tab = {tabNumber}
 				index = {1}
 			>
-				hi
+				<RankCard />
 			</TabPanel>
 		</>
 	);

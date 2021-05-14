@@ -1,0 +1,37 @@
+@import "../base//variable";
+
+.rank-card{
+	display: flex;
+	flex-direction: column;
+	padding: 10px 10%;
+	margin-bottom: 10px;
+	border-bottom: 2px solid $purple;
+	.rank-title{
+		display: flex;
+		margin-bottom: 1rem;
+		&>p{
+			font-weight: 600;
+			&:first-of-type{
+				margin-right: 20px;
+
+			}
+		}
+	}
+	.rank-people{
+		display: flex;
+		flex-direction: column;
+		border: 1px solid gray;
+		background-color: $light_purple;
+		padding: 10px;
+		margin-bottom: 1rem;
+		&>div{
+			display: flex;
+			align-items: center;
+		}
+		.people-list{
+			&>div{
+				margin-right: 10px;
+			}
+		}
+	}
+}
