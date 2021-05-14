@@ -40,6 +40,10 @@ header{
 	.share-con>button{
 		font-size: 0.7rem;
 		text-decoration: underline;
+		margin-right: 15px;
+		&:last-of-type{
+			margin-right: 0;
+		}
 		@include desktop(){
 			font-size: 1rem;
 		}
