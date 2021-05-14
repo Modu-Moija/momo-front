@@ -58,6 +58,7 @@ const Result = () => {
 					/>
 				</div>
 			</div>
+			<button id="faq">?</button>
 		</div>
 	)
 };
