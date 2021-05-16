@@ -82,23 +82,6 @@ const Setting = () => {
 	}
 
 	return (
-	// create-container
-	//     -> create-title
-	//     -> create-setting
-	//          -> crete-calender
-	//          -> crete-content
-	//               -> create-content-box
-	//                    -> crete-plan-name
-	//                    -> crete-time
-	//                         -> create-time-start
-	//                         -> create-time-finish
-	//                    -> create-gap
-	//                    -> create-option
-	//                         -> create-center
-	//                         -> create-online
-	//               -> create-create-btn
-
-
 		<div className="create-container">
 			<div className="create-title">
 				<PageTitle
