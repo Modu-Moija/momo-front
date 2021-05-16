@@ -3,6 +3,26 @@
 @import "../base/variable";
 @import "../base/mixin";
 
+@mixin select-button {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  & > select {
+    padding-right: 40px;
+    text-align-last: center;
+    margin-bottom: 2rem;
+    width: 40%;
+    height: 40px;
+    border: 1.7px solid #{$light_gray};
+    font-size: 15px;
+    appearance: none;
+    background: url("../../img/arrow.png") no-repeat 100% 50%/40px auto;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .create-container {
   .create-title {
     margin: 15px 0;
@@ -15,6 +35,10 @@
       justify-content: space-around;
     }
     .create-calender {
+      @include desktop() {
+        width: 40%;
+      }
+
       .rdrCalendarWrapper {
         width: 100% !important;
         .rdrDateDisplayWrapper {
@@ -26,6 +50,9 @@
       }
     }
     .create-content {
+      @include desktop() {
+        width: 50%;
+      }
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -52,37 +79,9 @@
             }
           }
         }
-        .create-time {
-          display: flex;
-          justify-content: center;
-          .start,
-          .end {
-            text-align-last: center;
-            margin-bottom: 2rem;
-            width: 40%;
-            height: 40px;
-            border: 1.7px solid #{$light_gray};
-            font-size: 15px;
-            &:focus {
-              outline: none;
-            }
-          }
-        }
+        .create-time,
         .create-gap {
-          display: flex;
-          justify-content: center;
-          align-items: baseline;
-          .gap {
-            text-align-last: center;
-            width: 40%;
-            height: 40px;
-            border: 1.7px solid #{$light_gray};
-            font-size: 15px;
-            margin-bottom: 2rem;
-            &:focus {
-              outline: none;
-            }
-          }
+          @include select-button;
         }
         .create-option {
           .form-check {

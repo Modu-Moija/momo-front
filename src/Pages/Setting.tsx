@@ -1,11 +1,8 @@
 import React from 'react';
-//import {  } from "@material-ui/core";
 import { useState } from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { PageTitle, CalendarComponent } from '../Components';
-import { NativeSelect } from '@material-ui/core';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../scss/pages/setting.scss";
@@ -148,8 +145,7 @@ const Setting = () => {
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
 							</select>
-							{/* <ExpandMoreIcon></ExpandMoreIcon> */}
-							<div>~</div>
+							<div>&nbsp;&nbsp;~&nbsp;&nbsp;</div>
 							<select
 								className="end"
 								id="end"
@@ -165,7 +161,6 @@ const Setting = () => {
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
 							</select>
-							{/* <ExpandMoreIcon></ExpandMoreIcon> */}
 						</div>
 
 						{/* 간격 선택 */}
@@ -184,7 +179,6 @@ const Setting = () => {
 								<option value={30}>30분</option>
 								<option value={60}>1시간</option>
 							</select>
-							{/* <ExpandMoreIcon></ExpandMoreIcon> */}
 							<div>&nbsp;&nbsp;단위</div>
 						</div>
 
