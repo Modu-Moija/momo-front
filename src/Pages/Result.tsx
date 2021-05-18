@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
 
-import { PageTitle, CalendarComponent, ResultTab } from '../Components';
+import { PageTitle, CalendarComponent, ResultTab, FAQmodal } from '../Components';
 import { DateRangeType, DateRangeParaType } from '../Main/Type';
 import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
 
@@ -15,6 +15,7 @@ const Result = () => {
 	const setArrowShow = useArrowDispatch();
 
 	const [date, setDate] = useState<Date>(new Date());
+	const [showFAQ, setShowFAQ] = useState<boolean>(false);
 
 	const handleDateClick = (datePara : any) => { // 나중에 type 정확히 하기
 		setDate(datePara);
@@ -23,6 +24,9 @@ const Result = () => {
 	const showResult = () => {
 		setArrowShow(true);
 	}
+
+	const openFAQModal = () => { setShowFAQ(true) };
+	const closeFAQModal = () => { setShowFAQ(false) };
 
 	return (
 		<div id="result-wrap">
@@ -59,7 +63,8 @@ const Result = () => {
 					<ResultTab />
 				</div>
 			</div>
-			<button id="faq">?</button>
+			<button id="faq" onClick={openFAQModal}>?</button>
+			<FAQmodal open={showFAQ} onClose={closeFAQModal}/>
 		</div>
 	)
 };
