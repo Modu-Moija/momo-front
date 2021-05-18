@@ -1,18 +1,21 @@
 import React from 'react';
-//import {  } from "@material-ui/core";
 import { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
+import { PageTitle, CalendarComponent } from '../Components';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../scss/pages/setting.scss";
 
 const Setting = () => {
+	const name = "";
+	const headerTitle = "언제가 좋을까요?🤔";
+
 	const [title, setTitle] = useState("");
 	const [start, setStart] = useState("");
 	const [end, setEnd] = useState("");
 	const [gap, setGap] = useState("");
-	const [state, setState] = useState(
+	const [range, setRange] = useState(
 		{
 			selection1: {
 				startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
@@ -79,32 +82,18 @@ const Setting = () => {
 	}
 
 	return (
-	// create-container
-	//     -> create-title
-	//     -> create-setting
-	//          -> crete-calender
-	//          -> crete-content
-	//               -> create-content-box
-	//                    -> crete-plan-name
-	//                    -> crete-time
-	//                         -> create-time-start
-	//                         -> create-time-finish
-	//                    -> create-gap
-	//                    -> create-option
-	//                         -> create-center
-	//                         -> create-online
-	//               -> create-create-btn
-
-
 		<div className="create-container">
 			<div className="create-title">
-				<h1>언제가 좋을까요?🤔</h1>
+				<PageTitle
+					upperTitle={name}
+					title={headerTitle}
+				/>
 			</div>
 			<div className="create-setting">
 				<div className="create-calender">
 					<DateRange
-						onChange={item => setState({ ...state, ...item })}
-						ranges={[state.selection1, state.selection2, state.selection3]}
+						onChange={item => setRange({ ...range, ...item })}
+						ranges={[range.selection1, range.selection2, range.selection3]}
 						rangeColors={["#7E84F3", "#7E84F3", "#7E84F3"]}
 						color={"#7E84F3"}
 						disabledDay={handleDisabled}
@@ -139,14 +128,14 @@ const Setting = () => {
 								<option value="12:00">오후12시</option>
 								{pmTimeList}
 							</select>
-							<div>~</div>
+							<div>&nbsp;&nbsp;~&nbsp;&nbsp;</div>
 							<select
 								className="end"
 								id="end"
 								name="end"
 								value={end}
 								onChange={handleEndChange}
-							>
+							>              
 								<option aria-label="None" value="">
 									끝시간
 								</option>
