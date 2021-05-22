@@ -48,7 +48,7 @@ const Result = () => {
 						handleDateClick = {handleDateClick}
 					/>
 					{/* TIME PICKER */}
-					<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} />
+					<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} />
 				</div>
 				<div>
 					정보

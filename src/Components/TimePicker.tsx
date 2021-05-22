@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { SwipeableDrawer, Button } from '@material-ui/core';
 import { timeNodeType } from '../Main/Type';
+import { DateToMonthDayString } from '../Function/DateToString';
 import "../scss/component/_timepicker.scss";
 
 
 type Props = {
 	open : boolean,
 	onOpen : () => void,
-	onClose : () => void
+	onClose : () => void,
+	date : Date
 }
 
-const TimePicker = ({open, onOpen, onClose} : Props) => {
+const TimePicker = ({open, onOpen, onClose, date} : Props) => {
 	const start = "11:00";
 	const end = "10:00";
 	const gap = 30;
@@ -25,7 +27,7 @@ const TimePicker = ({open, onOpen, onClose} : Props) => {
 			anchor="right"
 			className="time-picker"
 		>
-			<p className="picker-title">12/14 월요일</p>
+			<p className="picker-title">{DateToMonthDayString(date)}</p>
 			<div className="scroll-picker">
 				<Button variant="outlined" color="primary">11:00</Button>
 				<Button variant="contained" color="primary">12:00</Button>
