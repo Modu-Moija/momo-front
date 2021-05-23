@@ -12,7 +12,7 @@ const Login = () => {
 	return (
 		<div id="login-wrap">
 			<div className="logo-img">
-				<img src="/logo.png" alt="로고 이미지"/>
+				<img src="/img/logo.png" alt="로고 이미지"/>
 			</div>
 			<div className="info">
 				<p>닉네임은 해당 일정에서만 사용됩니다!</p>
