@@ -11,3 +11,7 @@ export type DateRangeType = {
 	endDate : Date,
 	key: string
 };
+export type timeNodeType = {
+	timeString : string,
+	picked : boolean
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import PeopleIcon from '@material-ui/icons/People';
 import "../scss/component/_rankcard.scss";
 
 const RankCard = () => {
@@ -14,7 +13,7 @@ const RankCard = () => {
 			</div>
 			<div className="rank-people">
 				<div>
-					<PeopleIcon/>
+					<img src="/img/people_can.png" alt="되는 사람"/>
 					<p>{`: ${canDo.length}`}</p>
 				</div>
 				<div className="people-list">
@@ -23,7 +22,7 @@ const RankCard = () => {
 			</div>
 			<div className="rank-people">
 				<div>
-					<PeopleIcon/>
+					<img src="/img/people_cant.png" alt="안되는 사람"/>
 					<p>{`: ${cantDo.length}`}</p>
 				</div>
 				<div className="people-list">
