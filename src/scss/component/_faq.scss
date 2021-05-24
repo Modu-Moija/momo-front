@@ -1,8 +1,29 @@
-.faq{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	p{
-		background-color: white;
-	}
+@import "../base/variable";
+@import "../base/mixin";
+@import "../base/font";
+
+.faq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .faq-container {
+    height: 100vh;
+    overflow-y: scroll;
+    .faq-content {
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+      .faq-close {
+        position: fixed;
+        z-index: 1;
+        font-size: 2em;
+        color: #{$purple};
+      }
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      overflow-y: scroll;
+    }
+  }
 }
