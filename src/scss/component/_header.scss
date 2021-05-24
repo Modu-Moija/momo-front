@@ -2,51 +2,58 @@
 @import "../base/mixin";
 @import "../base/font";
 
-
-header{
-	width: 100%;
-	height: 6vh;
-	box-shadow: 0 0 5px #{$shadow_gray};
-	display: flex;
-	padding: 0 15px;
-	z-index: 100;
-	@include desktop(){
-		height: 70px;
-		padding: 0 80px;
-	}
-	&>div{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	.left-arrow{
-		flex-shrink: 0;
-	}
-	.header-con{
-		width: 100%;
-	}
-	.title{
-		font-family: 'Dabanggu', sans-serif;
-		font-size: 1.4rem;
-		font-weight: 400;
-		color: #{$purple};
-		@include desktop(){
-			font-size: 2rem;
-		}
-	}
-	.share-con{
-		display: flex;
-	}
-	.share-con>button{
-		font-size: 0.7rem;
-		text-decoration: underline;
-		margin-right: 15px;
-		&:last-of-type{
-			margin-right: 0;
-		}
-		@include desktop(){
-			font-size: 1rem;
-		}
-		flex-shrink: 0;
-	}
+header {
+  width: 100%;
+  height: 6vh;
+  box-shadow: 0 0 5px #{$shadow_gray};
+  display: flex;
+  padding: 0 15px;
+  z-index: 100;
+  @include desktop() {
+    height: 70px;
+    padding: 0 80px;
+  }
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .left-arrow {
+    flex-shrink: 0;
+  }
+  .header-con {
+    width: 100%;
+  }
+  .title {
+    // font-family: 'Dabanggu', sans-serif;
+    // font-size: 1.4rem;
+    // font-weight: 400;
+    // color: #{$purple};
+    // @include desktop(){
+    // 	font-size: 2rem;
+    // }
+    img {
+      width: auto;
+      height: 33px;
+      @include desktop() {
+        width: auto;
+        height: 55px;
+      }
+    }
+  }
+  .share-con {
+    display: flex;
+  }
+  .share-con > button {
+    font-size: 0.7rem;
+    text-decoration: underline;
+    margin-right: 15px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    @include desktop() {
+      font-size: 1rem;
+    }
+    flex-shrink: 0;
+  }
 }

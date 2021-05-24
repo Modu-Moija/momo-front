@@ -15,26 +15,20 @@ const Setting = () => {
 	const [start, setStart] = useState("");
 	const [end, setEnd] = useState("");
 	const [gap, setGap] = useState("");
-	const [range, setRange] = useState(
+	const [range, setRange] = useState([
 		{
-			selection1: {
-				startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
-				endDate: new Date(), 
-				key: 'selection1', // 변수
-			},
-			selection2: {
-				startDate: new Date(),
-				endDate: new Date(), 
-				key: 'selection2',
-			},
-			selection3: {
-				startDate: new Date(),
-				endDate: new Date(), 
-				key: 'selection3',
-			}
+			startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
+			endDate: new Date(), 
+			key : 'selection',
+			// key: `selection${id}`, // 변수
 		}
-	);
+	]);
   
+	const handleRange = (item : any) => {
+		setRange([item.selection]);
+		console.log(item);
+	}
+
 	// 일정이름
 	const handleTitleChange = (e : any) => {
 		setTitle(e.target.value);
@@ -92,8 +86,8 @@ const Setting = () => {
 			<div className="create-setting">
 				<div className="create-calender">
 					<DateRange
-						onChange={item => setRange({ ...range, ...item })}
-						ranges={[range.selection1, range.selection2, range.selection3]}
+						onChange={handleRange}
+						ranges={range}
 						rangeColors={["#7E84F3", "#7E84F3", "#7E84F3"]}
 						color={"#7E84F3"}
 						disabledDay={handleDisabled}

@@ -1,38 +1,40 @@
 @import "./font";
 @import "./variable";
 
-*{
-	box-sizing: border-box;
-	position: relative;
-	margin: 0;
-	padding: 0;
+* {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
-html, body, #wrap{
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	font-family: 'noto-sans', sans-serif;
-	min-height: 100vh;
+html,
+body,
+#wrap {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: "noto-sans", sans-serif;
+  min-height: 100vh;
 }
-button{
-	background-color: transparent;
-	outline: none;
-	border: none;
-	cursor: pointer;
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
-#body-wrap{
-    overflow: hidden;
-	width : 100%;
-	height: 94vh;
-	&>div{
-		padding: 20px;
-	}
+#body-wrap {
+  overflow: hidden;
+  width: 100%;
+  height: 94vh;
+  & > div {
+    padding: 20px;
+  }
 }
 
 /* material-ui reset */
-.MuiCheckbox-colorPrimary{
-	color: $purple!important;
+.MuiCheckbox-colorPrimary {
+  color: $purple !important;
 }
-.MuiButton-containedPrimary{
-	background-color: $purple!important;
+.MuiButton-containedPrimary {
+  background-color: $purple !important;
 }

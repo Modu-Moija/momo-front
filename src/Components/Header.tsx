@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../scss/component/_header.scss";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useArrowState, useArrowDispatch} from '../Main/Model/ArrowModel';
+import logo from "../img/logo.png"
 
 const Header = () => {
 	const arrowShow = useArrowState();
@@ -18,7 +19,10 @@ const Header = () => {
 				</div>
 			}
 			<div className="header-con">
-				<div className="title">MOMO</div>
+				{/* <div className="title">MOMO</div> */}
+				<div className="title">
+					<img src={logo} alt="logo" />
+				</div>
 				<div className="share-con">
 					<button className="kakao-share">카카오톡 공유하기</button>
 					<button className="link-copy">링크 복사하기</button>
