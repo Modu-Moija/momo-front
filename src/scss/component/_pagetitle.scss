@@ -1,26 +1,30 @@
-@import '../base/font';
+@import "../base/font";
 
-.page-title{
-	display: flex;
-	align-items: center;
-	font-family: 'Dabanggu', sans-serif;
-	span{
-		margin-right: 15px;
-		font-size: 1.2rem;
-	}
-	div{
-		display: flex;
-		flex-direction: column;
-		.small-title{
-			font-size: 0.7rem;
-			margin-bottom: 7px;
-			strong{
-				text-decoration: underline;
-			}
-		}
-		.title-string{
-			font-size: 1.2rem;
-		}
-	}
-
+.page-title {
+  display: flex;
+  align-items: center;
+  font-family: "Dabanggu", sans-serif;
+  // span{
+  // 	margin-right: 15px;
+  // 	font-size: 1.2rem;
+  // }
+  img {
+    height: 26.4px;
+    width: auto;
+    margin-right: 15px;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    .small-title {
+      font-size: 0.7rem;
+      margin-bottom: 7px;
+      strong {
+        text-decoration: underline;
+      }
+    }
+    .title-string {
+      font-size: 1.2rem;
+    }
+  }
 }

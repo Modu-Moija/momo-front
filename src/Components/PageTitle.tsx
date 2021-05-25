@@ -10,7 +10,8 @@ const PageTitle = ({upperTitle, title} : Props) => {
 	const a = 1;
 	return (
 		<div className="page-title">
-			<span>🟣</span>
+			{/* <span>🟣</span> */}
+			<img src="/img/circle.png" alt="circle"/>
 			<div>
 				{
 					upperTitle &&
