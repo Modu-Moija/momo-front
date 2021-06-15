@@ -6,3 +6,4 @@ export { default as ResultTab } from './ResultTab';
 export { default as RankCard } from './RankCard';
 export { default as FAQmodal } from './FAQmodal';
 export { default as TimePicker } from './TimePicker';
+export { default as Information } from './Information';

@@ -3,17 +3,21 @@ import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
 import { OnChangeProps, Calendar, DateRange, Range } from 'react-date-range';
 
-import { PageTitle, ResultTab, FAQmodal, TimePicker } from '../Components';
+import { PageTitle, ResultTab, FAQmodal, TimePicker, Information } from '../Components';
 import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
 import { usePlanState } from '../Main/Model/PlanModel';
 import { DateToSmallYearDateString } from '../Function/DateToString';
 import { useEffect } from 'react';
 import { DateListType, PlanType } from '../Main/Type';
 
+import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
+
 const Result = () => {
 	// 일정 선택, 결과 표시
 	const name = "희은";
 	const title = "웹 디자인 레이아웃 회의";
+
+	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
@@ -79,14 +83,8 @@ const Result = () => {
 								date = {date}
 								onChange = {handleDateClick}
 							/>
-							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} />
+							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} isTabletOrMobile={isTabletOrMobile} />
 						</>
-					}
-				</div>
-				<div>
-					정보
-					{
-						// todo : 일정 생성이면 생성, 설정이면 정보 및 버튼
 					}
 				</div>
 				<div className="btn-con">
@@ -94,8 +92,14 @@ const Result = () => {
 						우리의 약속시간은?
 					</Button>
 				</div>
+				{
+					isTabletOrMobile && <Information/>
+				}
 			</div>
-			<div id="result-page" className={arrowShow?"visible":"unvisible"}>
+			<div id="result-page" className={!isTabletOrMobile || arrowShow?"visible":"unvisible"}>
+				{
+					!isTabletOrMobile && <Information/>
+				}
 				<div>
 					<PageTitle
 						title="최종 약속 시간"

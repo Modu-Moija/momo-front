@@ -18,6 +18,16 @@ export const PlanContextProvider = ({ children } : childrenObj) => {
 					"10:30" : true,
 					"11:00" : false,
 					"11:30" : false,
+					"12:00" : false,
+					"12:30" : false,
+					"13:00" : false,
+					"13:30" : false,
+					"14:00" : false,
+					"14:30" : false,
+					"15:00" : false,
+					"15:30" : false,
+					"16:00" : false,
+					"16:30" : false
 				},
 				"21/5/24" : {
 					"10:00" : true,
@@ -26,6 +36,24 @@ export const PlanContextProvider = ({ children } : childrenObj) => {
 					"11:30" : false,
 				},
 				"21/5/25" : {
+					"10:00" : false,
+					"10:30" : false,
+					"11:00" : false,
+					"11:30" : false
+				},
+				"21/5/26" : {
+					"10:00" : false,
+					"10:30" : false,
+					"11:00" : false,
+					"11:30" : false
+				},
+				"21/5/27" : {
+					"10:00" : false,
+					"10:30" : false,
+					"11:00" : false,
+					"11:30" : false
+				},
+				"21/5/28" : {
 					"10:00" : false,
 					"10:30" : false,
 					"11:00" : false,
@@ -49,6 +77,24 @@ export const PlanContextProvider = ({ children } : childrenObj) => {
 					"10:00" : 0,
 					"10:30" : 0,
 					"11:00" : 0,
+					"11:30" : 0
+				},
+				"21/5/26" : {
+					"10:00" : 0,
+					"10:30" : 0,
+					"11:00" : 0,
+					"11:30" : 0
+				},
+				"21/5/27" : {
+					"10:00" : 0,
+					"10:30" : 0,
+					"11:00" : 0,
+					"11:30" : 0
+				},
+				"21/5/28" : {
+					"10:00" : 0,
+					"10:30" : 0,
+					"11:00" : 2,
 					"11:30" : 0
 				}
 			}
