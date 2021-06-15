@@ -85,7 +85,6 @@ export default class Coloring{
 				nextPoint.split('/')[0] === point.split('/')[0] // 같은 포인트인지
 			)).includes(true);
 		});
-		await console.log(this.movePoints, nextMovePoints, deletedMovePoints);
 		await this.coloringBack(deletedMovePoints, res);
 		await this.subscribers.setBoolArray(res.slice());
 

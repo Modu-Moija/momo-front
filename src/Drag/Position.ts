@@ -29,7 +29,6 @@ export default class Position{
 		try{
 			const pos = Number(target.id);
 			this.startPos = await pos;
-			await console.log("startPos : ", this.startPos);
 			await this.subscribers.publish('startPointSave', event); // startPoint가 저장되었으면 publish
 		}catch(error){
 			console.log(error);
@@ -47,7 +46,6 @@ export default class Position{
 	}
 
 	async end(event? : EventType){
-		console.log("position end");
 		if(!event)
 			return;
 		await this.saveEndPoint(event);
@@ -71,7 +69,6 @@ export default class Position{
 				return;
 			}
 			this.endPos = await pos;
-			await console.log("endPos : ", this.endPos);
 			await this.subscribers.publish('movePointSave', event);
 		}catch(error){
 			console.log(error);

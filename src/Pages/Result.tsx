@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
+import { OnChangeProps, Calendar, DateRange, Range } from 'react-date-range';
 
-import { PageTitle, CalendarComponent, ResultTab, FAQmodal, TimePicker } from '../Components';
+import { PageTitle, ResultTab, FAQmodal, TimePicker } from '../Components';
 import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
+import { usePlanState } from '../Main/Model/PlanModel';
 import { DateToSmallYearDateString } from '../Function/DateToString';
+import { useEffect } from 'react';
+import { DateListType, PlanType } from '../Main/Type';
 
 const Result = () => {
 	// 일정 선택, 결과 표시
@@ -13,14 +17,39 @@ const Result = () => {
 
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
+	const plan = usePlanState();
 
-	const [date, setDate] = useState<Date>(new Date("2021/05/23"));
+	const [date, setDate] = useState<Date | undefined>(undefined);
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
 
-	const handleDateClick = (datePara : any) => { // 나중에 type 정확히 하기
-		setDate(datePara);
-		setShowPicker(true);
+	useEffect(() => {
+		if(!plan || !plan.planList)
+			return;
+		setStartDate(plan.planList);
+	}, [plan]);
+
+	const setStartDate = (plan: DateListType) => {
+		const startDateStr = Object.keys(plan)[0];
+		if(!startDateStr)
+			return;
+		setDate(new Date("20"+startDateStr));
+	}
+
+	// todo : result calendar에 반영
+
+	const handleDateClick = (datePara : OnChangeProps) => {
+		if(!plan || !plan.planList){
+			return;
+		}
+		const dateString = DateToSmallYearDateString(datePara as Date);
+		if(!plan.planList[dateString]){
+			alert("해당 날짜는 설정되지 않았습니다.");
+			return;
+		}else{
+			setDate(datePara as Date);
+			setShowPicker(true);
+		}
 	}
 
 	const showResult = () => {
@@ -43,13 +72,16 @@ const Result = () => {
 					/>
 				</div>
 				<div className="result-table">
-					<CalendarComponent
-						date = {date}
-						handleDateClick = {handleDateClick}
-					/> 
-					{/* todo : plan에 없는 날짜는 캘린더에서 비활성화하기 */}
-					{/* TIME PICKER */}
-					<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} />
+					{
+						date &&
+						<>
+							<Calendar
+								date = {date}
+								onChange = {handleDateClick}
+							/>
+							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} />
+						</>
+					}
 				</div>
 				<div>
 					정보

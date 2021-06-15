@@ -27,9 +27,9 @@ const Table = ({ boolArray, subscribers, timeArray } : Props) => {
 
 	return (
 		<div className="timepicker-con"
-			onPointerDown={clickHandler} onMouseDown={clickHandler}
-			onPointerEnter={moveHandler} onMouseOver={moveHandler}
-			onPointerUp={doneHandler} onMouseUp={doneHandler}
+			onMouseDown={clickHandler}
+			onMouseOver={moveHandler}
+			onMouseUp={doneHandler}
 		>
 			{
 				timeArray.map((time : string, index : number) => (
