@@ -35,6 +35,7 @@
 		"no-tabs": 0, // tab 사용 안되는 rule
 		"quote-props": 0, // property에 quote를 씌우지 말아야하는 rule
 		"@typescript-eslint/no-empty-function" : 0, // 빈 arrow-funciton 가능
-		"react/prop-types" : 0 // no props validation
+		"react/prop-types" : 0, // no props validation
+        "@typescript-eslint/ban-types" : 0 // drag 기능에서 Function을 type으로 사용하기 위해 필요 
     }
 }

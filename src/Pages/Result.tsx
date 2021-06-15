@@ -3,8 +3,8 @@ import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
 
 import { PageTitle, CalendarComponent, ResultTab, FAQmodal, TimePicker } from '../Components';
-import { DateRangeType, DateRangeParaType } from '../Main/Type';
 import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
+import { DateToSmallYearDateString } from '../Function/DateToString';
 
 const Result = () => {
 	// 일정 선택, 결과 표시
@@ -14,7 +14,7 @@ const Result = () => {
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
 
-	const [date, setDate] = useState<Date>(new Date());
+	const [date, setDate] = useState<Date>(new Date("2021/05/23"));
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
 
@@ -46,7 +46,8 @@ const Result = () => {
 					<CalendarComponent
 						date = {date}
 						handleDateClick = {handleDateClick}
-					/>
+					/> 
+					{/* todo : plan에 없는 날짜는 캘린더에서 비활성화하기 */}
 					{/* TIME PICKER */}
 					<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} />
 				</div>
