@@ -1,3 +1,4 @@
+name: momo react client CI/CD
 
 on:
   push:
