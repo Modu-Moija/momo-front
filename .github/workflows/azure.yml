@@ -1,30 +1,33 @@
 name: momo react client CI/CD
 
+
 on:
   push:
     branches: master
-    
-    
-env:
-  AZURE_WEBAPP_NAME: moomoo   # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x'                # set this to the node version to use
 
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     environment: production
+    env:
+      AZURE_WEBAPP_NAME: moomoo    
+      AZURE_WEBAPP_PACKAGE_PATH: '.'     
+      NODE_VERSION: '14.x'   
+        
     steps:
     - uses: actions/checkout@v2
+    
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ env.NODE_VERSION }}
+        
     - name: npm install, build
       run: |
         npm install
         CI=false npm run build --if-present
+      
         
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
