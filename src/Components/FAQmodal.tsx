@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from '@material-ui/core';
 import "../scss/component/_faq.scss";
+import CloseIcon from '@material-ui/icons/Close';
 
 type Props = {
 	open : boolean,
@@ -13,8 +14,11 @@ const FAQmodal = ({open, onClose} : Props) => {
 			onClose={onClose}
 			className="faq"
 		>
-			<div>
-				<p>faq</p>
+			<div className="faq-container">
+				<div className="faq-content">
+					<CloseIcon className="faq-close" onClick={onClose}/>
+				</div>
+				<img src="img/faq.png" alt="faq"/>
 			</div>
 		</Modal>
 	);
