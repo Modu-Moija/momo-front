@@ -1,14 +1,17 @@
 import React from 'react';
 
+import { PlanContextProvider } from './Model/PlanModel';
 import { ArrowContextProvider } from './Model/ArrowModel';
 import Router from './Router';
 
 const Provider : React.FC = () => {
 	const a = 1;
 	return (
-		<ArrowContextProvider>
-			<Router />
-		</ArrowContextProvider>
+		<PlanContextProvider>
+			<ArrowContextProvider>
+				<Router />
+			</ArrowContextProvider>
+		</PlanContextProvider>
 	);
 };
 

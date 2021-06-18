@@ -1,13 +1,24 @@
 @import "../base/variable";
 
-.time-picker .MuiDrawer-paper{
-	padding: 30px 15px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border-radius: 30px;
-	margin-right: -30px;
-	padding-right: 50px;
+.time-picker{
+	.MuiDrawer-paper{
+		width: 70%;
+		padding: 30px 15px;
+		border-radius: 30px;
+		margin-right: -30px;
+		padding-right: 50px;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	}
+	.timepicker-con{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		overflow-y: scroll;
+		height: 100%;
+		padding: 10px;
+	}
 	.picker-title{
 		font-weight: 600;
 		font-family: 'Dabanggu', 'noto-sans', sans-serif;
@@ -24,5 +35,9 @@
 		height: 50px;
 		margin: 10px;
 		border: 2px solid $purple;
+		flex-shrink: 0;
+		&.clicked{
+			background-color: $purple;
+		}
 	}
 }

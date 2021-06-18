@@ -5,8 +5,8 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
 type Props = {
-	date: Date // useState state
-	handleDateClick: (range: OnChangeProps) => void // handling function using useState dispatch
+	date: Date
+	handleDateClick: (range: OnChangeProps) => void
 };
 
 const CalendarComponent = ({ date, handleDateClick }: Props) => {
