@@ -40,6 +40,7 @@ const Provider = ({timeArray, boolArray, setBoolArray} : Props) => {
 		if(!subscribers)
 			return;
 		subscribers.setBoolArr(boolArray);
+		setBoolArray(boolArray);
 	}, [boolArray]);
 
 	return (

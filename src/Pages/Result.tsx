@@ -23,7 +23,7 @@ const Result = () => {
 	const setArrowShow = useArrowDispatch();
 	const plan = usePlanState();
 
-	const [date, setDate] = useState<Date | undefined>(undefined);
+	const [date, setDate] = useState<Date | undefined>(undefined); // 시작 날짜
 	const [month, setMonth] = useState<number | undefined>(undefined);
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
@@ -70,27 +70,32 @@ const Result = () => {
 
 	const coloringResult = async (month: number) => { // 캘린더에 결과 표시
 		const monthResultList = plan?.resultList?.[month];
+		await initializeDOM();
 		if (!monthResultList){
-			await initializeDOM();
 			return;
 		}
 		Object.keys(monthResultList).map((date: string) => {
 			const dateNum = Number(date);
 			coloringDOM(dateNum, monthResultList[dateNum]);
 		})
-
 	}
 
 	const initializeDOM = () => {
 		// 초기화
-		// todo : react 변수로 관리하고 바뀔 때마다 DOM 변경하기 => 직접 변경할 수 있는 함수없나..?
+		const ColoringDates = document.getElementsByClassName('coloring');
+		if(!ColoringDates)
+			return;
+		console.log(ColoringDates);
+		for (let i = 0; i < ColoringDates.length;) { // 주의 : ColoringDates도 함께 바뀌기 때문에 i 증가 x
+			ColoringDates[i].className = 'rdrDayNumber';
+		}
 	}
 
 	const coloringDOM = (date: number, num: number) => {
 		const dateElement = findDateDOM(date);
 		if (!dateElement)
 			return;
-		const wholeNum = 5; // todo : 전역 변수로 만들어 저장하기
+		const wholeNum = 5; // TODO : 전역 변수로 만들어 저장하기
 		const ratio = Math.ceil((num / wholeNum)*10);
 
 		switch (ratio) {
