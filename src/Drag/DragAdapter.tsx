@@ -20,7 +20,7 @@ const DragAdapter = ({ date }: Props) => {
 	
 		setTimeArray(Object.keys(timeList));
 		setBoolArray(Object.values(timeList));
-	}, [plan]);
+	}, [plan, date]);
 
 	const saveTimeArray = () => {
 		console.log(saveTimeArray);

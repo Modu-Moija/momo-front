@@ -20,13 +20,13 @@ export type timeNodeType = {
 export type PlanType = {
 	id : string,
 	planList : DateListType,
-	resultList : DateResultType
+	resultList : MonthResultType
+}
+export type MonthResultType = {
+	[month : number] : DateResultType;
 }
 export type DateResultType = {
-	[date : string] : TimeResultType
-}
-export type TimeResultType = {
-	[time : string] : number // 모든 유저의 클릭 수
+	[date : number] : number // 모든 유저의 클릭 수
 }
 export type DateListType = {
 	[date : string] : TimeListType // date는 OO/OO/OO 형태

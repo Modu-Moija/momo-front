@@ -4,11 +4,11 @@ import { Button } from '@material-ui/core';
 import { OnChangeProps, Calendar, DateRange, Range } from 'react-date-range';
 
 import { PageTitle, ResultTab, FAQmodal, TimePicker, Information } from '../Components';
-import { useArrowDispatch, useArrowState} from '../Main/Model/ArrowModel';
+import { useArrowDispatch, useArrowState } from '../Main/Model/ArrowModel';
 import { usePlanState } from '../Main/Model/PlanModel';
 import { DateToSmallYearDateString } from '../Function/DateToString';
 import { useEffect } from 'react';
-import { DateListType, PlanType } from '../Main/Type';
+import { DateListType, DateResultType, PlanType } from '../Main/Type';
 
 import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
 
@@ -24,35 +24,118 @@ const Result = () => {
 	const plan = usePlanState();
 
 	const [date, setDate] = useState<Date | undefined>(undefined);
+	const [month, setMonth] = useState<number | undefined>(undefined);
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
 
 	useEffect(() => {
-		if(!plan || !plan.planList)
+		if (!plan || !plan.planList)
 			return;
 		setStartDate(plan.planList);
 	}, [plan]);
 
-	const setStartDate = (plan: DateListType) => {
-		const startDateStr = Object.keys(plan)[0];
-		if(!startDateStr)
+	useEffect(() => {
+		if (!month)
 			return;
-		setDate(new Date("20"+startDateStr));
+		coloringResult(month);
+	}, [month]);
+
+	const setStartDate = (plan: DateListType) => {
+		// 캘린더 시작 날짜 세팅
+		const startDateStr = Object.keys(plan)[0];
+		if (!startDateStr)
+			return;
+		setDate(new Date("20" + startDateStr));
+		const month = Number(startDateStr.split('/')[1]);
+		if (isNaN(month))
+			return;
+		setMonth(month);
 	}
 
-	// todo : result calendar에 반영
-
-	const handleDateClick = (datePara : OnChangeProps) => {
-		if(!plan || !plan.planList){
+	const handleDateClick = (datePara: OnChangeProps) => { // 날짜 선택
+		if (!plan || !plan.planList) {
 			return;
 		}
 		const dateString = DateToSmallYearDateString(datePara as Date);
-		if(!plan.planList[dateString]){
-			alert("해당 날짜는 설정되지 않았습니다.");
-			return;
-		}else{
+		if (plan.planList[dateString]){
 			setDate(datePara as Date);
 			setShowPicker(true);
+		}
+	}
+
+	const handleMonthChange = (visibleMonth: Date) => {
+		const month = visibleMonth.getMonth() + 1;
+		setMonth(month);
+	}
+
+	const coloringResult = async (month: number) => { // 캘린더에 결과 표시
+		const monthResultList = plan?.resultList?.[month];
+		if (!monthResultList){
+			await initializeDOM();
+			return;
+		}
+		Object.keys(monthResultList).map((date: string) => {
+			const dateNum = Number(date);
+			coloringDOM(dateNum, monthResultList[dateNum]);
+		})
+
+	}
+
+	const initializeDOM = () => {
+		// 초기화
+		// todo : react 변수로 관리하고 바뀔 때마다 DOM 변경하기 => 직접 변경할 수 있는 함수없나..?
+	}
+
+	const coloringDOM = (date: number, num: number) => {
+		const dateElement = findDateDOM(date);
+		if (!dateElement)
+			return;
+		const wholeNum = 5; // todo : 전역 변수로 만들어 저장하기
+		const ratio = Math.ceil((num / wholeNum)*10);
+
+		switch (ratio) {
+		case 1:
+		case 2:
+			dateElement.className = 'rdrDayNumber coloring xs';
+			break;
+		case 3:
+		case 4:
+			dateElement.className = 'rdrDayNumber coloring s';
+			break;
+		case 5:
+		case 6:
+			dateElement.className = 'rdrDayNumber coloring m';
+			break;
+		case 7:
+		case 8:
+			dateElement.className = 'rdrDayNumber coloring l';
+			break;
+		case 9:
+		case 10:
+			dateElement.className = 'rdrDayNumber coloring xl';
+			break;
+		default:
+			dateElement.className = 'rdrDayNumber coloring origin'
+		}
+	}
+
+	const findDateDOM = (date: number) => { // 해당 날짜의 dom 가져오기
+		const Dates = document.getElementsByClassName('rdrDayNumber');
+		if(!Dates)
+			return;
+		for (let i = 0; i < Dates.length; i++) {
+			if(!Dates[i]?.children[0])
+				continue;
+			const dateDOM = Dates[i].children[0];
+			const buttonDOM = Dates[i].parentElement;
+			if(!buttonDOM)
+				continue;
+
+			if (dateDOM.innerHTML == date.toString()){
+				if(buttonDOM.classList.contains('rdrDayPassive')) // 지난 달 날짜 x
+					continue;
+				return Dates[i];
+			}
 		}
 	}
 
@@ -80,25 +163,29 @@ const Result = () => {
 						date &&
 						<>
 							<Calendar
-								date = {date}
-								onChange = {handleDateClick}
+								date={date}
+								onChange={handleDateClick}
+								onShownDateChange={handleMonthChange}
 							/>
-							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date = {date} isTabletOrMobile={isTabletOrMobile} />
+							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date={date} isTabletOrMobile={isTabletOrMobile} />
 						</>
 					}
 				</div>
-				<div className="btn-con">
-					<Button variant="contained" color="primary" onClick={showResult}>
-						우리의 약속시간은?
-					</Button>
-				</div>
 				{
-					isTabletOrMobile && <Information/>
+					isTabletOrMobile &&
+					<>
+						<div className="btn-con">
+							<Button variant="contained" color="primary" onClick={showResult}>
+								우리의 약속시간은?
+							</Button>
+						</div>
+						<Information />
+					</>
 				}
 			</div>
-			<div id="result-page" className={!isTabletOrMobile || arrowShow?"visible":"unvisible"}>
+			<div id="result-page" className={!isTabletOrMobile || arrowShow ? "visible" : "unvisible"}>
 				{
-					!isTabletOrMobile && <Information/>
+					!isTabletOrMobile && <Information />
 				}
 				<div>
 					<PageTitle
