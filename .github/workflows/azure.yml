@@ -21,8 +21,13 @@ jobs:
         
     - name: npm install, build
       run: |
-        npm install 
+        npm install
+        npm run build --if-present
         
+    - name: add process.json
+      run: |
+        echo '{ script: "serve", env: { PM2_SERVE_SPA: "true", PM2_SERVE_HOMEPAGE: "/index.html" } }' >> build/process.json
+
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with:
