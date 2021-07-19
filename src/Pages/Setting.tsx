@@ -6,6 +6,7 @@ import { PageTitle, CalendarComponent } from '../Components';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../scss/pages/setting.scss";
+import axios from 'axios';
 
 const Setting = () => {
 	const name = "";
@@ -20,14 +21,38 @@ const Setting = () => {
 			startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
 			endDate: new Date(), 
 			key : 'selection',
-			// key: `selection${id}`, // 변수
 		}
 	]);
+	const [dates, setDates] = useState([""])
+	const [checked, setChecked] = useState(false);
   
 	const handleRange = (item : any) => {
 		setRange([item.selection]);
 		console.log(item);
+    
+		// getMonth
+		let startGetMonth  = item["selection"].startDate.getMonth()+1;
+		startGetMonth  = startGetMonth < 9 ? `0${startGetMonth}` : startGetMonth; 
+		let endGetMonth = item["selection"].endDate.getMonth()+1;
+		endGetMonth  = endGetMonth < 9 ? `0${endGetMonth}` : endGetMonth; 
+
+		// getDate 
+		let startGetDate = item["selection"].startDate.getDate();
+		startGetDate  = startGetDate < 9 ? `0${startGetDate}` : startGetDate; 
+		let endGetDate  = item["selection"].endDate.getDate();
+		endGetDate  = endGetDate < 9 ? `0${endGetDate}` : endGetDate; 
+    
+		// getYear 
+		const startGetYear = item["selection"].startDate.getFullYear();
+		const endGetYear = item["selection"].endDate.getFullYear();
+    
+		// string
+		const startDate  = `${startGetYear}-${startGetMonth}-${startGetDate}`
+		const endDate = `${endGetYear}-${endGetMonth}-${endGetDate}`
+		console.log(startDate, endDate);
+		setDates([startDate, endDate]);
 	}
+
 
 	// 일정이름
 	const handleTitleChange = (e : any) => {
@@ -52,14 +77,13 @@ const Setting = () => {
 	}
   
 	const handleEndChange = (e : any) => {
-		setEnd(e.target.value)
-		// console.log(e.target.value);
-		// console.log(parseInt(e.target.value));
-		console.log(`${start} and ${e.target.value}`);
-		if (parseInt(start)>=parseInt(e.target.value)) {
-			alert("시간을 다시 설정해주세요.");
-			setEnd("");
-		}
+		console.log("안하는건가 이거..");
+		// setEnd(e.target.value)
+		// console.log(`${start} and ${e.target.value}`);
+		// if (parseInt(start)>=parseInt(e.target.value)) {
+		// 	alert("시간을 다시 설정해주세요.");
+		// 	setEnd("");
+		// }
 	}
 
 	const handleGapChange = (e : any) => {
@@ -73,6 +97,53 @@ const Setting = () => {
 		if (date > new Date(now.setDate(now.getDate() - 1))) // 오늘 날짜가 더 이전이면 활성화
 			return false; // 활성화
 		return true; // 아니면 비활성화
+	}
+
+	const handleChecked = (e : any) => {
+		// console.log(checked);
+		setChecked(!checked); // 반대로 입력됨 -> api 넘어가는 것 보고 수정 필요
+	}
+
+	const handleSubmit = (e : any) => {
+		// const headers = {
+		//   "Content-Type": "application/json",
+		// };
+
+		const URL = "https://momoapi.azurewebsites.net"
+
+		const data = {
+			"center" : true,
+			"date s" : ["2021-06-20", "2021-06-30"],
+			"end" : end,
+			"gap" : gap,
+			"start" : start,
+			"title" : title,
+			"video" : checked,
+		}
+
+		axios.post(`${URL}/api/meet`, data, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.then((response) => {
+				console.log(response);
+				// const url = response.data;
+				// window.location.href = url;
+			})
+			.catch((error) => {
+				console.log(error);
+				const status = error?.response?.status;
+				if (status === undefined) {
+					console.dir(
+						"데이터 오류" + JSON.stringify(error)
+					);
+				} else if(status === 400) {
+					console.dir("400에러");
+				} else if(status === 500) {
+					console.dir("내부 서버 오류");
+				}
+			})
 	}
 
 	return (
@@ -161,16 +232,16 @@ const Setting = () => {
 
 						<div className="create-option">
 							<div className="form-check form-switch create-center">
-								<input className="form-check-input" type="checkbox" id="center" />
+								<input className="form-check-input" type="checkbox" id="center"/>
 								<label className="form-check-label" htmlFor="center">중간지점도 볼래요!</label>
 							</div>
 							<div className="form-check form-switch create-online">
-								<input className="form-check-input" type="checkbox" id="online" />
+								<input className="form-check-input" type="checkbox" id="online" onChange={handleChecked}/>
 								<label className="form-check-label" htmlFor="online">화상회의로 진행할래요!</label>
 							</div>
 						</div>
 					</div>
-					<div className="create-create-btn">
+					<div className="create-create-btn" onClick={handleSubmit}>
 						<button>일정 생성하기</button>
 					</div>
 				</div>
