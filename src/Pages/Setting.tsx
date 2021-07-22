@@ -24,11 +24,12 @@ const Setting = () => {
 		}
 	]);
 	const [dates, setDates] = useState([""])
-	const [checked, setChecked] = useState(false);
+	const [center, setCenter] = useState(false);
+	const [online, setOnline] = useState(false);
   
 	const handleRange = (item : any) => {
 		setRange([item.selection]);
-		console.log(item);
+		// console.log(item);
     
 		// getMonth
 		let startGetMonth  = item["selection"].startDate.getMonth()+1;
@@ -49,7 +50,7 @@ const Setting = () => {
 		// string
 		const startDate  = `${startGetYear}-${startGetMonth}-${startGetDate}`
 		const endDate = `${endGetYear}-${endGetMonth}-${endGetDate}`
-		console.log(startDate, endDate);
+		// console.log(startDate, endDate);
 		setDates([startDate, endDate]);
 	}
 
@@ -77,8 +78,8 @@ const Setting = () => {
 	}
   
 	const handleEndChange = (e : any) => {
-		console.log("안하는건가 이거..");
-		// setEnd(e.target.value)
+		setEnd(e.target.value)
+		// 이거 안쓰는건가.....
 		// console.log(`${start} and ${e.target.value}`);
 		// if (parseInt(start)>=parseInt(e.target.value)) {
 		// 	alert("시간을 다시 설정해주세요.");
@@ -99,26 +100,32 @@ const Setting = () => {
 		return true; // 아니면 비활성화
 	}
 
-	const handleChecked = (e : any) => {
+	const handleOnlineChecked = (e : any) => {
 		// console.log(checked);
-		setChecked(!checked); // 반대로 입력됨 -> api 넘어가는 것 보고 수정 필요
+		setOnline(!online); // 반대로 입력됨
+	}
+
+	const handleCenterChecked = (e : any) => {
+		// console.log(checked);
+		setCenter(!center); // 반대로 입력됨
 	}
 
 	const handleSubmit = (e : any) => {
 		// const headers = {
 		//   "Content-Type": "application/json",
 		// };
+		// console.log(`title : ${title}, dates : ${dates}, end : ${end}, gap : ${gap}, start : ${start}, center : ${checked}`);
 
 		const URL = "https://momoapi.azurewebsites.net"
 
 		const data = {
-			"center" : true,
-			"date s" : ["2021-06-20", "2021-06-30"],
+			"center" : center,
+			"dates" : dates,
 			"end" : end,
 			"gap" : gap,
 			"start" : start,
 			"title" : title,
-			"video" : checked,
+			"video" : online,
 		}
 
 		axios.post(`${URL}/api/meet`, data, {
@@ -232,11 +239,11 @@ const Setting = () => {
 
 						<div className="create-option">
 							<div className="form-check form-switch create-center">
-								<input className="form-check-input" type="checkbox" id="center"/>
+								<input className="form-check-input" type="checkbox" id="center" onChange={handleCenterChecked}/>
 								<label className="form-check-label" htmlFor="center">중간지점도 볼래요!</label>
 							</div>
 							<div className="form-check form-switch create-online">
-								<input className="form-check-input" type="checkbox" id="online" onChange={handleChecked}/>
+								<input className="form-check-input" type="checkbox" id="online" onChange={handleOnlineChecked}/>
 								<label className="form-check-label" htmlFor="online">화상회의로 진행할래요!</label>
 							</div>
 						</div>
