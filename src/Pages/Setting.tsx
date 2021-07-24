@@ -79,12 +79,11 @@ const Setting = () => {
   
 	const handleEndChange = (e : any) => {
 		setEnd(e.target.value)
-		// 이거 안쓰는건가.....
 		// console.log(`${start} and ${e.target.value}`);
-		// if (parseInt(start)>=parseInt(e.target.value)) {
-		// 	alert("시간을 다시 설정해주세요.");
-		// 	setEnd("");
-		// }
+		if (parseInt(start)>=parseInt(e.target.value)) {
+			alert("시간을 다시 설정해주세요.");
+			setEnd("");
+		}
 	}
 
 	const handleGapChange = (e : any) => {
