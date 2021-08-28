@@ -16,11 +16,24 @@ export type timeNodeType = {
 	picked : boolean
 }
 
-// drag
 export type PlanType = {
-	id : string,
+	meetId : string,
 	planList : DateListType,
-	resultList : MonthResultType
+	colorDate : MonthResultType
+}
+export type PlanInfoType = {
+	title: string,//"약속생성테스트3",
+	start: string,//"12:00",
+	end: string,//"18:00",
+	gap: number,//30,
+	dates: string[],
+	center: boolean, //true,
+	video: boolean, //false,
+	meetSubInfo: {
+			who: string,//null,
+			when: string, //"2021-07-23 ~ 2021-07-28",
+			where: string,//"대면회의"
+	}
 }
 export type MonthResultType = {
 	[month : number] : DateResultType;

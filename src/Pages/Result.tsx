@@ -1,32 +1,47 @@
 import React, { useState } from 'react';
 import "../scss/pages/result.scss";
 import { Button } from '@material-ui/core';
-import { OnChangeProps, Calendar, DateRange, Range } from 'react-date-range';
+import { OnChangeProps, Calendar } from 'react-date-range';
 
 import { PageTitle, ResultTab, FAQmodal, TimePicker, Information } from '../Components';
 import { useArrowDispatch, useArrowState } from '../Main/Model/ArrowModel';
-import { usePlanState } from '../Main/Model/PlanModel';
-import { DateToSmallYearDateString } from '../Function/DateToString';
+import { usePlanState, useFetchPlan } from '../Main/Model/PlanModel';
+import { DateToYearDateString } from '../Function/DateToString';
 import { useEffect } from 'react';
 import { DateListType, DateResultType, PlanType } from '../Main/Type';
+import { withRouter, RouteComponentProps } from "react-router";
+import { Login } from '.';
 
 import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
 
-const Result = () => {
+interface PathParamsProps {
+	meetId : string;
+}
+
+const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 	// 일정 선택, 결과 표시
 	const name = "희은";
 	const title = "웹 디자인 레이아웃 회의";
 
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
+	const fetchPlan = useFetchPlan();
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
 	const plan = usePlanState();
 
+	const [isCookieExist, setCookieExist] = useState<boolean>(false);
 	const [date, setDate] = useState<Date | undefined>(undefined); // 시작 날짜
 	const [month, setMonth] = useState<number | undefined>(undefined);
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
+
+	useEffect(() => {
+		if(!match.params.meetId || !isCookieExist)
+			return;
+		// 로그인 후 바로 plan 정보 받아오기
+		fetchPlan(match.params.meetId);
+	}, [isCookieExist]);
 
 	useEffect(() => {
 		if (!plan || !plan.planList)
@@ -45,7 +60,8 @@ const Result = () => {
 		const startDateStr = Object.keys(plan)[0];
 		if (!startDateStr)
 			return;
-		setDate(new Date("20" + startDateStr));
+		setDate(new Date(startDateStr));
+		console.log(startDateStr);
 		const month = Number(startDateStr.split('/')[1]);
 		if (isNaN(month))
 			return;
@@ -56,7 +72,7 @@ const Result = () => {
 		if (!plan || !plan.planList) {
 			return;
 		}
-		const dateString = DateToSmallYearDateString(datePara as Date);
+		const dateString = DateToYearDateString(datePara as Date);
 		if (plan.planList[dateString]){
 			setDate(datePara as Date);
 			setShowPicker(true);
@@ -69,7 +85,7 @@ const Result = () => {
 	}
 
 	const coloringResult = async (month: number) => { // 캘린더에 결과 표시
-		const monthResultList = plan?.resultList?.[month];
+		const monthResultList = plan?.colorDate?.[month];
 		await initializeDOM();
 		if (!monthResultList){
 			return;
@@ -85,7 +101,6 @@ const Result = () => {
 		const ColoringDates = document.getElementsByClassName('coloring');
 		if(!ColoringDates)
 			return;
-		console.log(ColoringDates);
 		for (let i = 0; i < ColoringDates.length;) { // 주의 : ColoringDates도 함께 바뀌기 때문에 i 증가 x
 			ColoringDates[i].className = 'rdrDayNumber';
 		}
@@ -156,54 +171,64 @@ const Result = () => {
 
 	return (
 		<div id="result-wrap">
-			<div id="result-calendar-con">
-				<div>
-					<PageTitle
-						upperTitle={name}
-						title={title}
-					/>
-				</div>
-				<div className="result-table">
-					{
-						date &&
-						<>
-							<Calendar
-								date={date}
-								onChange={handleDateClick}
-								onShownDateChange={handleMonthChange}
-							/>
-							<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date={date} isTabletOrMobile={isTabletOrMobile} />
-						</>
-					}
-				</div>
-				{
-					isTabletOrMobile &&
+			{
+				plan ?
 					<>
-						<div className="btn-con">
-							<Button variant="contained" color="primary" onClick={showResult}>
-								우리의 약속시간은?
-							</Button>
+						<div id="result-calendar-con">
+							<div>
+								<PageTitle
+									upperTitle={name}
+									title={title}
+								/>
+							</div>
+							<div className="result-table">
+								{
+									date &&
+									<>
+										<Calendar
+											date={date}
+											onChange={handleDateClick}
+											onShownDateChange={handleMonthChange}
+										/>
+										<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date={date} isTabletOrMobile={isTabletOrMobile} />
+									</>
+								}
+							</div>
+							{
+								isTabletOrMobile &&
+								<>
+									<div className="btn-con">
+										<Button variant="contained" color="primary" onClick={showResult}>
+											우리의 약속시간은?
+										</Button>
+									</div>
+									<Information />
+								</>
+							}
 						</div>
-						<Information />
+						<div id="result-page" className={!isTabletOrMobile || arrowShow ? "visible" : "unvisible"}>
+							{
+								!isTabletOrMobile && <Information />
+							}
+							<div>
+								<PageTitle
+									title="최종 약속 시간"
+								/>
+								<ResultTab />
+							</div>
+						</div>
+						{/* FAQ */}
+						<button id="faq" onClick={openFAQModal}>?</button>
+						<FAQmodal open={showFAQ} onClose={closeFAQModal} />
 					</>
-				}
-			</div>
-			<div id="result-page" className={!isTabletOrMobile || arrowShow ? "visible" : "unvisible"}>
-				{
-					!isTabletOrMobile && <Information />
-				}
-				<div>
-					<PageTitle
-						title="최종 약속 시간"
+					:
+					<Login
+						meetId={match.params.meetId}
+						setCookieExist={setCookieExist}
 					/>
-					<ResultTab />
-				</div>
-			</div>
-			{/* FAQ */}
-			<button id="faq" onClick={openFAQModal}>?</button>
-			<FAQmodal open={showFAQ} onClose={closeFAQModal} />
+			}
 		</div>
 	)
 };
 
-export default Result;
+export default withRouter(Result);

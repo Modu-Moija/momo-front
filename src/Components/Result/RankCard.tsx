@@ -1,7 +1,7 @@
 import React from 'react';
-import "../scss/component/_rankcard.scss";
+import "../../scss/component/_rankcard.scss";
 
-const RankCard = () => {
+export const RankCard = () => {
 	const index  = 1;
 	const timeRange  = "10:00PM ~ 11:00PM";
 	const canDo : string[] = ["우희은", "김수람", "이소정", "박미현"];
@@ -32,5 +32,3 @@ const RankCard = () => {
 		</div>
 	);
 };
-
-export default RankCard;

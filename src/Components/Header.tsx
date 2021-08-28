@@ -4,7 +4,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useArrowState, useArrowDispatch} from '../Main/Model/ArrowModel';
 import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
 
-const Header = () => {
+export const Header = () => {
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -32,5 +32,3 @@ const Header = () => {
 		</header>
 	);
 };
-
-export default Header;

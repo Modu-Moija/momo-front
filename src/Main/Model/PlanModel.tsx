@@ -1,92 +1,59 @@
 import React, { useState, useContext, createContext, Dispatch, useEffect } from 'react';
-import { childrenObj, PlanType } from '../Type';
+import { childrenObj, PlanType, PlanInfoType } from '../Type';
+import axios from 'axios';
+import { API_HOST } from '../../Common';
+import planData from '../../mock/planData';
 
-const PlanState = createContext<PlanType | undefined>(undefined); 
-const PlanDispatch = createContext<Dispatch<PlanType>>(()=>{}); 
+const PlanState = createContext<PlanType | undefined>(undefined);
+const PlanDispatch = createContext<Dispatch<PlanType>>(() => { });
+const fetchPlanFunction = createContext< (meetId: string) => Promise<void> | void>(() => {});
 
-export const PlanContextProvider = ({ children } : childrenObj) => {
+export const PlanContextProvider = ({ children }: childrenObj) => {
+	const [planInfo, setPlanInfo] = useState<PlanInfoType | undefined>(undefined);
 	const [plan, setPlan] = useState<PlanType | undefined>(undefined);
 
-	// todo : api로 받아오고 저장하는 함수 구현
-	
-	useEffect(()=>{ // 초기화
-		setPlan({
-			id: "gmldms784",
-			planList: {
-				"21/5/23" : {
-					"10:00" : true,
-					"10:30" : true,
-					"11:00" : false,
-					"11:30" : false,
-					"12:00" : false,
-					"12:30" : false,
-					"13:00" : false,
-					"13:30" : false,
-					"14:00" : false,
-					"14:30" : false,
-					"15:00" : false,
-					"15:30" : false,
-					"16:00" : false,
-					"16:30" : false
-				},
-				"21/5/24" : {
-					"10:00" : true,
-					"10:30" : true,
-					"11:00" : true,
-					"11:30" : false,
-				},
-				"21/5/25" : {
-					"10:00" : false,
-					"10:30" : false,
-					"11:00" : false,
-					"11:30" : false
-				},
-				"21/5/26" : {
-					"10:00" : false,
-					"10:30" : false,
-					"11:00" : false,
-					"11:30" : false
-				},
-				"21/5/27" : {
-					"10:00" : false,
-					"10:30" : false,
-					"11:00" : false,
-					"11:30" : false
-				},
-				"21/5/28" : {
-					"10:00" : false,
-					"10:30" : false,
-					"11:00" : false,
-					"11:30" : false
-				}
-			},
-			resultList : {
-				5 : {
-					23: 4,
-					24: 5,
-					25: 2,
-					26: 2,
-					27: 0,
-					28: 0
-				}
-			}
-		})
-	}, []);
+	const fetchPlanInfo = async (meetId: string) => {
+		const API_PATH = `/api/meet/${meetId}`;
+		const { data } = await axios.get(`${API_HOST}${API_PATH}`);
+		setPlanInfo(data?.data);
+	}
+
+	const fetchPlanTime = async () => {
+		// const API_PATH = '/api/time/usertime';
+		// const {data} = await axios.get(`${API_HOST}${API_PATH}`, {
+		// 	withCredentials: true
+		// });
+		// TODO : api 연동
+
+		setPlan(planData);
+	}
+
+	const fetchPlan = (meetId : string) => {
+		fetchPlanInfo(meetId);
+		fetchPlanTime();
+	}
 
 	return (
 		<PlanState.Provider value={plan}>
 			<PlanDispatch.Provider value={setPlan}>
-				{children}
+				<fetchPlanFunction.Provider value={fetchPlan}>
+					{children}
+				</fetchPlanFunction.Provider>
 			</PlanDispatch.Provider>
 		</PlanState.Provider>
 	);
 }
 
-export function usePlanState(){
+export function useFetchPlan() {
+	const context = useContext(fetchPlanFunction);
+	return context;
+}
+
+export function usePlanState() {
 	const context = useContext(PlanState);
 	return context;
 }
-export function usePlanDispatch(){
+export function usePlanDispatch() {
 	const context = useContext(PlanDispatch);
 	return context;
 }

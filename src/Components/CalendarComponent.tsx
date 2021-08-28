@@ -9,7 +9,7 @@ type Props = {
 	handleDateClick: (range: OnChangeProps) => void
 };
 
-const CalendarComponent = ({ date, handleDateClick }: Props) => {
+export const CalendarComponent = ({ date, handleDateClick }: Props) => {
 	return (
 		<Calendar
 			date={date}
@@ -17,5 +17,3 @@ const CalendarComponent = ({ date, handleDateClick }: Props) => {
 		/>
 	);
 };
-
-export default CalendarComponent;
