@@ -16,17 +16,30 @@ export type timeNodeType = {
 	picked : boolean
 }
 
-// drag
 export type PlanType = {
-	id : string,
+	meetId : string,
 	planList : DateListType,
-	resultList : DateResultType
+	colorDate : MonthResultType
+}
+export type PlanInfoType = {
+	title: string,//"약속생성테스트3",
+	start: string,//"12:00",
+	end: string,//"18:00",
+	gap: number,//30,
+	dates: string[],
+	center: boolean, //true,
+	video: boolean, //false,
+	meetSubInfo: {
+			who: string,//null,
+			when: string, //"2021-07-23 ~ 2021-07-28",
+			where: string,//"대면회의"
+	}
+}
+export type MonthResultType = {
+	[month : number] : DateResultType;
 }
 export type DateResultType = {
-	[date : string] : TimeResultType
-}
-export type TimeResultType = {
-	[time : string] : number // 모든 유저의 클릭 수
+	[date : number] : number // 모든 유저의 클릭 수
 }
 export type DateListType = {
 	[date : string] : TimeListType // date는 OO/OO/OO 형태

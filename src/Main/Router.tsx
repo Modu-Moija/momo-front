@@ -9,7 +9,7 @@ const Router : React.FC = () => (
 		<Switch>
 			<Route exact path="/" component={Setting} />
 			<Route exact path="/login" component={Login} />
-			<Route exact path="/result" component={Result} />
+			<Route exact path="/result/:meetId" component={Result} />
 		</Switch>
 	</Layout>
 );

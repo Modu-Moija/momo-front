@@ -1,3 +1,51 @@
-.rdrMonth{
-	width: 100%!important;
+.result-table{
+	.rdrMonth{
+		width: 100%!important;
+	}
+	.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span{
+		color: black!important;
+	}
+	.rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge{
+		background-color: transparent!important;
+	}
+	.rdrDayHovered{
+		.rdrDayNumber{
+			cursor: default;
+			&::after{
+				border: none!important;;
+				content: none!important;;
+				outline: none!important;;
+			}
+		}
+	}
+	.rdrDayNumber{
+		border: 1px solid white;
+		background-color: rgb(243, 243, 243);
+		height: 100%;
+		cursor: default;
+		&.coloring{
+			cursor: pointer;
+			background-color: #ffffff;
+			&.xs{
+				background-color: #C7CBFF;
+			}
+			&.s{
+				background-color: #B2B7FA;
+			}
+			&.m{
+				background-color: #7E84F3;
+			}
+			&.l{
+				background-color: #646bff;
+			}
+			&.xl{
+				background-color: #525AF1;
+			}
+		}
+	}
+
+	.rdrDayStartPreview, .rdrDayInPreview, .rdrDayEndPreview{
+		border: none!important;
+		background: transparent!important;
+	}
 }

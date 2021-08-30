@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Header } from '.';
 
-const Layout : React.FC = ({children}) => {
+export const Layout : React.FC = ({children}) => {
 	return (
 		<div id="wrap">
 			<Header />
@@ -11,5 +11,3 @@ const Layout : React.FC = ({children}) => {
 		</div>
 	)
 };
-
-export default Layout;

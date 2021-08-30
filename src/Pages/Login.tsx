@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
 import "../scss/pages/login.scss";
 import { Button, Checkbox } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_HOST } from '../Common';
+import { ChangeEvent } from 'react';
+import { Dispatch } from 'react';
 
-const Login = () => {
+interface LoginProps {
+	meetId : string;
+	setCookieExist : Dispatch<boolean>;
+}
+
+const Login = ({meetId, setCookieExist} : LoginProps) => {
 	// 로그인 화면
+	// TODO : 자동 로그인
+
+	const [name, setName] = useState<string>("");
 	const [loginSave, setLoginSave] = useState<boolean>(false);
 	const handleCheckLoginSave = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setLoginSave(event.target.checked);
 	}
+
+	const Login = async () => {
+		const API_PATH = '/api/user/login';
+		const {data} = await axios.post(`${API_HOST}${API_PATH}`, {
+			username: name,
+			remember: loginSave,
+			meetId: meetId
+		}, {
+			withCredentials : true
+		});
+
+		if(data){
+			setCookieExist(true);
+		}
+	} 
+
+	const handleNameChange = (event : ChangeEvent<HTMLInputElement>) => {
+		setName(event.target.value);
+	}
+
 	return (
 		<div id="login-wrap">
 			<div className="logo-img">
@@ -20,7 +51,7 @@ const Login = () => {
 			</div>
 			<div className="field-con">
 				<div>
-					<input className="text-field" type="text" placeholder="닉네임을 입력해주세요."></input>
+					<input className="text-field" onChange={handleNameChange} type="text" placeholder="닉네임을 입력해주세요."></input>
 				</div>
 				<div className="auto-login">
 					<Checkbox
@@ -32,7 +63,7 @@ const Login = () => {
 				</div>
 			</div>
 			<div className="btn-con">
-				<Link to="/result"><Button variant="contained" color="primary">로그인</Button></Link>
+				<Button variant="contained" color="primary" onClick={Login}>로그인</Button>
 			</div>
 		</div>
 	)

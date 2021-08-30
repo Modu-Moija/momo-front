@@ -1,9 +1,9 @@
 import React from 'react';
 import { SwipeableDrawer, Button, Table, TableHead, TableRow, TableBody } from '@material-ui/core';
 
-import { DateToMonthDayString } from '../Function/DateToString';
-import { DragAdapter } from '../Drag';
-import "../scss/component/_timepicker.scss";
+import { DateToMonthDayString } from '../../Function/DateToString';
+import { DragAdapter } from '../../Drag';
+import "../../scss/component/_timepicker.scss";
 type Props = {
 	open: boolean,
 	onOpen: () => void,
@@ -12,7 +12,7 @@ type Props = {
 	isTabletOrMobile: boolean
 }
 
-const TimePicker = ({ open, onOpen, onClose, date, isTabletOrMobile }: Props) => {
+export const TimePicker = ({ open, onOpen, onClose, date, isTabletOrMobile }: Props) => {
 
 	return (
 		<>
@@ -37,5 +37,3 @@ const TimePicker = ({ open, onOpen, onClose, date, isTabletOrMobile }: Props) =>
 		</>
 	);
 };
-
-export default TimePicker;

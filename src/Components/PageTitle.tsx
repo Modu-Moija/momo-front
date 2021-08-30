@@ -6,7 +6,7 @@ type Props = {
 	title : string; 
 }
 
-const PageTitle = ({upperTitle, title} : Props) => {
+export const PageTitle = ({upperTitle, title} : Props) => {
 	const a = 1;
 	return (
 		<div className="page-title">
@@ -22,5 +22,3 @@ const PageTitle = ({upperTitle, title} : Props) => {
 		</div>
 	);
 };
-
-export default PageTitle;

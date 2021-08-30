@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, AppBar, Box } from '@material-ui/core';
-import "../scss/component/_resulttab.scss";
-import { RankCard } from '.';
+import "../../scss/component/_resulttab.scss";
+import { RankCard } from '..';
 
 type Props = {
 	children : React.ReactNode,
@@ -26,7 +26,7 @@ const TabPanel = ({ children, tab, index} : Props) => {
 	);
 }
 
-const ResultTab = () => {
+export const ResultTab = () => {
 	const [tabNumber, setTabNumber] = useState<number>(0);
 
 	const handleTabClick = (event: any, changeTab: any) => {
@@ -57,5 +57,3 @@ const ResultTab = () => {
 		</>
 	);
 };
-
-export default ResultTab;
