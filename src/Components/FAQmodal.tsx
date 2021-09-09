@@ -7,7 +7,8 @@ type Props = {
 	open : boolean,
 	onClose : () => void
 }
-const FAQmodal = ({open, onClose} : Props) => {
+
+export const FAQmodal = ({open, onClose} : Props) => {
 	return (
 		<Modal
 			open={open}
@@ -23,5 +24,3 @@ const FAQmodal = ({open, onClose} : Props) => {
 		</Modal>
 	);
 }
-
-export default FAQmodal;

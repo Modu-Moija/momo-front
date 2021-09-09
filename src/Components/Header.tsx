@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import "../scss/component/_header.scss";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {useArrowState, useArrowDispatch} from '../Main/Model/ArrowModel';
+import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
 
-const Header = () => {
+export const Header = () => {
 	const arrowShow = useArrowState();
 	const setArrowShow = useArrowDispatch();
+	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 	const handleArrowClick = () => {
 		setArrowShow(false);
 	}
+
 	return (
 		<header>
 			{
-				arrowShow &&
+				arrowShow && isTabletOrMobile &&
 				<div className="left-arrow">
 					<ArrowBackIosIcon onClick={handleArrowClick}/>
 				</div>
 			}
 			<div className="header-con">
-				{/* <div className="title">MOMO</div> */}
 				<div className="title">
 					<img src="/img/logo.png" alt="logo"/>
 				</div>
@@ -30,5 +32,3 @@ const Header = () => {
 		</header>
 	);
 };
-
-export default Header;
