@@ -47,12 +47,16 @@
         .rdrDateDisplayWrapper {
           display: none;
         }
-        .rdrDayToday .rdrDayNumber span:after {
-          background: #{$purple};
-        }
-        .rdrDays button {
-          border: 1.2px solid #cecaca;
-          height: 3rem;
+        .rdrMonth {
+          width: 100%;
+
+          .rdrDayToday .rdrDayNumber span:after {
+            background: #{$purple};
+          }
+          .rdrDays button {
+            border: 1.2px solid #cecaca;
+            height: 3rem;
+          }
         }
       }
     }
