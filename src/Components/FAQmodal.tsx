@@ -19,7 +19,7 @@ export const FAQmodal = ({open, onClose} : Props) => {
 				<div className="faq-content">
 					<CloseIcon className="faq-close" onClick={onClose}/>
 				</div>
-				<img src="img/faq.png" alt="faq"/>
+				<img src="/img/faq.png" alt="faq"/>
 			</div>
 		</Modal>
 	);
