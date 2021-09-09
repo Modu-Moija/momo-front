@@ -1,7 +1,12 @@
 import React from 'react';
 
-export const Information = () => {
+export const Information = ({data} : any) => {
+	const info = data?.data.meetSubInfo;
 	return (
-		<div>소정님 작업하시면 됩니다.</div>
+		<>
+			<div>{info.who}</div>
+			<div>{info.when}</div>
+			<div>{info.where}</div>
+		</>
 	);
 }
