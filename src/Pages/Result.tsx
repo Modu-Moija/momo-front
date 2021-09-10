@@ -13,8 +13,8 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { Login } from '.';
 
 import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
-import { getAllJSDocTags } from 'typescript';
 import axios from 'axios';
+import { API_HOST } from '../Common';
 
 interface PathParamsProps {
 	meetId : string;
@@ -50,9 +50,9 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 			return;
 		getData(match.params.meetId);
 	}, [match.url]);
-	const URL = "https://momoapi.azurewebsites.net"
+	// const URL = "https://momoapi.azurewebsites.net"
 	const getData = async (meetid : String) => {
-		await axios.get(`${URL}/api/meet/${meetid}`)
+		await axios.get(`${API_HOST}/api/meet/${meetid}`)
 			.then((response) => {
 				setData(response.data);
 				// console.dir(response);
@@ -215,7 +215,6 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 								<PageTitle 
 									title={title}
 									upperTitle={name}
-									// data={data}
 								/>
 							</div>
 							<div className="result-table">
