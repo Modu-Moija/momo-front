@@ -6,6 +6,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../scss/pages/setting.scss";
 import axios from 'axios';
+import { API_HOST } from '../Common';
 
 const Setting = () => {
 	const name = "";
@@ -113,7 +114,7 @@ const Setting = () => {
 		//   "Content-Type": "application/json",
 		// };
 		// console.log(`title : ${title}, dates : ${dates}, end : ${end}, gap : ${gap}, start : ${start}, center : ${center}, online : ${online}`);
-		const URL = "https://momoapi.azurewebsites.net"
+		// const URL = "https://momoapi.azurewebsites.net"
 
 		const data = {
 			"center" : center,
@@ -125,15 +126,16 @@ const Setting = () => {
 			"video" : online,
 		}
 
-		axios.post(`${URL}/api/meet`, data, {
+		axios.post(`${API_HOST}/api/meet`, data, {
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
 			.then((response) => {
 				console.log(response);
-				// const url = response.data;
-				// window.location.href = url;
+				const url = response.data.data;
+				// console.log(url);
+				window.location.href = `result/${url}`;
 			})
 			.catch((error) => {
 				console.log(error);
