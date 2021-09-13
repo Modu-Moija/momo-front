@@ -18,7 +18,7 @@ export const Information = ({data} : any) => {
 				<h3>어디서?</h3>
 			</div>
 			<div className="info_data">
-				<p>{who}</p>
+				<p>{who.join(' , ')}</p>
 				<p>{info.when}</p>
 				<p>{info.where}</p>
 			</div>

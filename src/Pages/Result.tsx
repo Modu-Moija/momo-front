@@ -51,6 +51,7 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 		getData(match.params.meetId);
 	}, [match.url]);
 	// const URL = "https://momoapi.azurewebsites.net"
+
 	const getData = async (meetid : String) => {
 		await axios.get(`${API_HOST}/api/meet/${meetid}`)
 			.then((response) => {
@@ -73,10 +74,13 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 					console.dir("내부 서버 오류입니다. 잠시만 기다려주세요.");
 				}
 			});
+
 	};
 
 	// 소정 code -> data 사용하려고 아래로 옮김
-	const name = "희은";
+	const [username, setUsername] = useState("");
+  
+	const name = `${username}`;
 	const title = `${data?.data.title}`;
 
 	useEffect(() => {
@@ -262,6 +266,7 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 					<Login
 						meetId={match.params.meetId}
 						setCookieExist={setCookieExist}
+						setUsername={setUsername}
 					/>
 			}
 		</div>

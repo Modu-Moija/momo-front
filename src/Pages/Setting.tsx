@@ -128,7 +128,8 @@ const Setting = () => {
 
 		axios.post(`${API_HOST}/api/meet`, data, {
 			headers: {
-				'Content-Type': 'application/json'
+				// 'Access-Control-Allow-Origin' : '*',
+				'Content-Type': 'application/json',
 			}
 		})
 			.then((response) => {
