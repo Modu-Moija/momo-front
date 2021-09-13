@@ -53,33 +53,35 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 	// const URL = "https://momoapi.azurewebsites.net"
 
 	const getData = async (meetid : String) => {
-		await axios.get(`${API_HOST}/api/meet/${meetid}`)
-			.then((response) => {
-				setData(response.data);
-				// console.dir(response);
-			})
-			.catch((err) => {
-				const status = err?.response?.status;
-				console.log(err);
-				if (status === undefined) {
-					console.dir("데이터를 불러오던 중 예기치 못한 예외가 발생하였습니다.\n" + JSON.stringify(err));
-				}
-				else if (status === 400) {
-					console.dir("400에러");
-				}
-				else if (status === 404) {
-					console.dir("404에러");
-				}
-				else if (status === 500) {
-					console.dir("내부 서버 오류입니다. 잠시만 기다려주세요.");
-				}
-			});
+		const response = await axios.get(`${API_HOST}/api/meet/${meetid}`);
+		setData(response.data);
+		// await axios.get(`${API_HOST}/api/meet/${meetid}`)
+		// 	.then((response) => {
+		// 		setData(response.data);
+		// 		// console.dir(response);
+		// 	})
+		// 	.catch((err) => {
+		// 		const status = err?.response?.status;
+		// 		console.log(err);
+		// 		if (status === undefined) {
+		// 			console.dir("데이터를 불러오던 중 예기치 못한 예외가 발생하였습니다.\n" + JSON.stringify(err));
+		// 		}
+		// 		else if (status === 400) {
+		// 			console.dir("400에러");
+		// 		}
+		// 		else if (status === 404) {
+		// 			console.dir("404에러");
+		// 		}
+		// 		else if (status === 500) {
+		// 			console.dir("내부 서버 오류입니다. 잠시만 기다려주세요.");
+		// 		}
+		// 	});
 
 	};
 
 	// 소정 code -> data 사용하려고 아래로 옮김
 	const [username, setUsername] = useState("");
-  
+
 	const name = `${username}`;
 	const title = `${data?.data.title}`;
 

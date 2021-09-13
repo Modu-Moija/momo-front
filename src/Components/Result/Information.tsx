@@ -2,13 +2,13 @@ import React from 'react';
 import "../../scss/component/_information.scss";
 
 export const Information = ({data} : any) => {
-	console.log(data?.data);
+	// console.log(data?.data);
 	const info = data?.data.meetSubInfo;
 	// 일단 짠다....
-	let who = info.who;
-	if (who === null) {
-		who = "no one"
-	}
+	// let who = info.who;
+	// if (who === null) {
+	// 	who = "no one"
+	// }
 
 	return (
 		<div className="info_container">
@@ -18,7 +18,7 @@ export const Information = ({data} : any) => {
 				<h3>어디서?</h3>
 			</div>
 			<div className="info_data">
-				<p>{who.join(' , ')}</p>
+				<p>{info.who.join(' , ')}</p>
 				<p>{info.when}</p>
 				<p>{info.where}</p>
 			</div>
