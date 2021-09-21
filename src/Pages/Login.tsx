@@ -9,9 +9,10 @@ import { Dispatch } from 'react';
 interface LoginProps {
 	meetId : string;
 	setCookieExist : Dispatch<boolean>;
+  setUsername : any;
 }
 
-const Login = ({meetId, setCookieExist} : LoginProps) => {
+const Login = ({meetId, setCookieExist, setUsername} : LoginProps ) => {
 	// 로그인 화면
 	// TODO : 자동 로그인
 
@@ -30,10 +31,13 @@ const Login = ({meetId, setCookieExist} : LoginProps) => {
 		}, {
 			withCredentials : true
 		});
-
+    
 		if(data){
 			setCookieExist(true);
 		}
+
+		setUsername(name);
+  
 	} 
 
 	const handleNameChange = (event : ChangeEvent<HTMLInputElement>) => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { DateRange } from 'react-date-range';
-import { addDays } from 'date-fns';
-import { PageTitle, CalendarComponent } from '../Components';
+import { PageTitle } from '../Components';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../scss/pages/setting.scss";
 import axios from 'axios';
+import { API_HOST } from '../Common';
 
 const Setting = () => {
 	const name = "";
@@ -15,7 +15,7 @@ const Setting = () => {
 	const [title, setTitle] = useState("");
 	const [start, setStart] = useState("");
 	const [end, setEnd] = useState("");
-	const [gap, setGap] = useState("");
+	const [gap, setGap] = useState(0); // number
 	const [range, setRange] = useState([
 		{
 			startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
@@ -33,15 +33,15 @@ const Setting = () => {
     
 		// getMonth
 		let startGetMonth  = item["selection"].startDate.getMonth()+1;
-		startGetMonth  = startGetMonth < 9 ? `0${startGetMonth}` : startGetMonth; 
+		startGetMonth  = startGetMonth < 10 ? `0${startGetMonth}` : startGetMonth; 
 		let endGetMonth = item["selection"].endDate.getMonth()+1;
-		endGetMonth  = endGetMonth < 9 ? `0${endGetMonth}` : endGetMonth; 
+		endGetMonth  = endGetMonth < 10 ? `0${endGetMonth}` : endGetMonth; 
 
 		// getDate 
 		let startGetDate = item["selection"].startDate.getDate();
-		startGetDate  = startGetDate < 9 ? `0${startGetDate}` : startGetDate; 
+		startGetDate  = startGetDate < 10 ? `0${startGetDate}` : startGetDate; 
 		let endGetDate  = item["selection"].endDate.getDate();
-		endGetDate  = endGetDate < 9 ? `0${endGetDate}` : endGetDate; 
+		endGetDate  = endGetDate < 10 ? `0${endGetDate}` : endGetDate; 
     
 		// getYear 
 		const startGetYear = item["selection"].startDate.getFullYear();
@@ -87,8 +87,8 @@ const Setting = () => {
 	}
 
 	const handleGapChange = (e : any) => {
-		setGap(e.target.value)
-		// console.log(e.target.value);
+		setGap(parseInt(e.target.value))
+		// console.log(typeof(parseInt(e.target.value)));
 	}
 
 
@@ -113,9 +113,8 @@ const Setting = () => {
 		// const headers = {
 		//   "Content-Type": "application/json",
 		// };
-		// console.log(`title : ${title}, dates : ${dates}, end : ${end}, gap : ${gap}, start : ${start}, center : ${checked}`);
-
-		const URL = "https://momoapi.azurewebsites.net"
+		// console.log(`title : ${title}, dates : ${dates}, end : ${end}, gap : ${gap}, start : ${start}, center : ${center}, online : ${online}`);
+		// const URL = "https://momoapi.azurewebsites.net"
 
 		const data = {
 			"center" : center,
@@ -127,15 +126,17 @@ const Setting = () => {
 			"video" : online,
 		}
 
-		axios.post(`${URL}/api/meet`, data, {
+		axios.post(`${API_HOST}/api/meet`, data, {
 			headers: {
-				'Content-Type': 'application/json'
+				// 'Access-Control-Allow-Origin' : '*',
+				'Content-Type': 'application/json',
 			}
 		})
 			.then((response) => {
 				console.log(response);
-				// const url = response.data;
-				// window.location.href = url;
+				const url = response.data.data;
+				// console.log(url);
+				window.location.href = `result/${url}`;
 			})
 			.catch((error) => {
 				console.log(error);
@@ -229,7 +230,7 @@ const Setting = () => {
 								<option aria-label="None" value="">
 									단위
 								</option>
-								<option value={15}>15분</option>
+								{/* <option value={15}>15분</option> */}
 								<option value={30}>30분</option>
 								<option value={60}>1시간</option>
 							</select>

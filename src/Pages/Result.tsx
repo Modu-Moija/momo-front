@@ -13,6 +13,8 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { Login } from '.';
 
 import { useMediaQuery } from 'react-responsive'; // 미디어 쿼리
+import axios from 'axios';
+import { API_HOST } from '../Common';
 
 interface PathParamsProps {
 	meetId : string;
@@ -20,9 +22,6 @@ interface PathParamsProps {
 
 const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 	// 일정 선택, 결과 표시
-	const name = "희은";
-	const title = "웹 디자인 레이아웃 회의";
-
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
 	const fetchPlan = useFetchPlan();
@@ -35,13 +34,56 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 	const [month, setMonth] = useState<number | undefined>(undefined);
 	const [showPicker, setShowPicker] = useState<boolean>(false);
 	const [showFAQ, setShowFAQ] = useState<boolean>(false);
-
+  
 	useEffect(() => {
 		if(!match.params.meetId || !isCookieExist)
 			return;
 		// 로그인 후 바로 plan 정보 받아오기
 		fetchPlan(match.params.meetId);
 	}, [isCookieExist]);
+  
+	// 소정 code -> data 받아오기
+	const [data, setData] = useState<any>();
+  
+	useEffect(() => {
+		if(!match.url)
+			return;
+		getData(match.params.meetId);
+	}, [match.url]);
+	// const URL = "https://momoapi.azurewebsites.net"
+
+	const getData = async (meetid : String) => {
+		const response = await axios.get(`${API_HOST}/api/meet/${meetid}`);
+		setData(response.data);
+		// await axios.get(`${API_HOST}/api/meet/${meetid}`)
+		// 	.then((response) => {
+		// 		setData(response.data);
+		// 		// console.dir(response);
+		// 	})
+		// 	.catch((err) => {
+		// 		const status = err?.response?.status;
+		// 		console.log(err);
+		// 		if (status === undefined) {
+		// 			console.dir("데이터를 불러오던 중 예기치 못한 예외가 발생하였습니다.\n" + JSON.stringify(err));
+		// 		}
+		// 		else if (status === 400) {
+		// 			console.dir("400에러");
+		// 		}
+		// 		else if (status === 404) {
+		// 			console.dir("404에러");
+		// 		}
+		// 		else if (status === 500) {
+		// 			console.dir("내부 서버 오류입니다. 잠시만 기다려주세요.");
+		// 		}
+		// 	});
+
+	};
+
+	// 소정 code -> data 사용하려고 아래로 옮김
+	const [username, setUsername] = useState("");
+
+	const name = `${username}`;
+	const title = `${data?.data.title}`;
 
 	useEffect(() => {
 		if (!plan || !plan.planList)
@@ -61,7 +103,7 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 		if (!startDateStr)
 			return;
 		setDate(new Date(startDateStr));
-		console.log(startDateStr);
+		// console.log(startDateStr);
 		const month = Number(startDateStr.split('/')[1]);
 		if (isNaN(month))
 			return;
@@ -176,9 +218,9 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 					<>
 						<div id="result-calendar-con">
 							<div>
-								<PageTitle
-									upperTitle={name}
+								<PageTitle 
 									title={title}
+									upperTitle={name}
 								/>
 							</div>
 							<div className="result-table">
@@ -197,18 +239,19 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 							{
 								isTabletOrMobile &&
 								<>
+									{/* 위로 올림 */}
+									<Information data={data}/>
 									<div className="btn-con">
 										<Button variant="contained" color="primary" onClick={showResult}>
 											우리의 약속시간은?
 										</Button>
 									</div>
-									<Information />
 								</>
 							}
 						</div>
 						<div id="result-page" className={!isTabletOrMobile || arrowShow ? "visible" : "unvisible"}>
 							{
-								!isTabletOrMobile && <Information />
+								!isTabletOrMobile && <Information data={data}/>
 							}
 							<div>
 								<PageTitle
@@ -225,6 +268,7 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 					<Login
 						meetId={match.params.meetId}
 						setCookieExist={setCookieExist}
+						setUsername={setUsername}
 					/>
 			}
 		</div>

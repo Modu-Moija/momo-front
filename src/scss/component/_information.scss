@@ -1,0 +1,26 @@
+@import "../base/variable";
+@import "../base/mixin";
+@import "../base/font";
+
+.info_container {
+  display: flex;
+  padding: 0 0.833em 1.666em 0.833em;
+  .info_title {
+    color: #{$purple};
+    font-weight: 500;
+    font-family: "Dabanggu", sans-serif;
+    line-height: 40px;
+    width: 30%;
+    > h3 {
+      border-bottom: 3px #{$purple} solid;
+      padding-right: 2em;
+    }
+  }
+  .info_data {
+    line-height: 40px;
+    width: 70%;
+    > p {
+      border-bottom: 3px #{$purple} solid;
+    }
+  }
+}
