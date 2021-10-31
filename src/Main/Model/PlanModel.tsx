@@ -19,13 +19,12 @@ export const PlanContextProvider = ({ children }: childrenObj) => {
 	}
 
 	const fetchPlanTime = async () => {
-		// const API_PATH = '/api/time/usertime';
-		// const {data} = await axios.get(`${API_HOST}${API_PATH}`, {
-		// 	withCredentials: true
-		// });
-		// TODO : api 연동
+		const API_PATH = '/api/time/usertime';
+		const {data} = await axios.get(`${API_HOST}${API_PATH}`, {
+			withCredentials: true
+		});
 
-		setPlan(planData);
+		setPlan(data);
 	}
 
 	const fetchPlan = (meetId : string) => {

@@ -89,12 +89,15 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 		if (!plan || !plan.planList)
 			return;
 		setStartDate(plan.planList);
+		if(month){
+			coloringResult(month);
+		}
 	}, [plan]);
 
 	useEffect(() => {
-		if (!month)
-			return;
-		coloringResult(month);
+		if(month){
+			coloringResult(month);
+		}
 	}, [month]);
 
 	const setStartDate = (plan: DateListType) => {
@@ -103,8 +106,7 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 		if (!startDateStr)
 			return;
 		setDate(new Date(startDateStr));
-		// console.log(startDateStr);
-		const month = Number(startDateStr.split('/')[1]);
+		const month = Number(startDateStr.split('-')[1]);
 		if (isNaN(month))
 			return;
 		setMonth(month);
@@ -232,7 +234,13 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 											onChange={handleDateClick}
 											onShownDateChange={handleMonthChange}
 										/>
-										<TimePicker open={showPicker} onOpen={openTimePicker} onClose={closeTimePicker} date={date} isTabletOrMobile={isTabletOrMobile} />
+										<TimePicker
+											open={showPicker}
+											onOpen={openTimePicker}
+											onClose={closeTimePicker}
+											date={date}
+											isTabletOrMobile={isTabletOrMobile}
+										/>
 									</>
 								}
 							</div>
@@ -257,7 +265,9 @@ const Result = ({ match } : RouteComponentProps<PathParamsProps>) => {
 								<PageTitle
 									title="최종 약속 시간"
 								/>
-								<ResultTab />
+								<>
+									<ResultTab />
+								</>
 							</div>
 						</div>
 						{/* FAQ */}

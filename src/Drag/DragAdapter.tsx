@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { usePlanState } from '../Main/Model/PlanModel';
+import { useFetchPlan, usePlanState } from '../Main/Model/PlanModel';
 import { DateToYearDateString } from '../Function/DateToString';
 import { DragProvider } from '.';
 import axios from 'axios';
@@ -67,8 +67,6 @@ const DragAdapter = ({ date }: Props) => {
 		const { data } = await axios.put(`${API_HOST}${API_PATH}`, newPlan, {
 			withCredentials: true
 		});
-
-		console.log(data);
 	}
 
 	return (

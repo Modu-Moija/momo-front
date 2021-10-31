@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Tab, AppBar, Box } from '@material-ui/core';
 import "../../scss/component/_resulttab.scss";
 import { RankCard } from '..';
+import { usePlanState } from '../../Main/Model/PlanModel';
+import { API_HOST } from '../../Common';
+import axios from 'axios';
+import { AwardInfoType, AwardType } from '../../Main/Type';
 
 type Props = {
 	children : React.ReactNode,
@@ -27,11 +31,30 @@ const TabPanel = ({ children, tab, index} : Props) => {
 }
 
 export const ResultTab = () => {
-	const [tabNumber, setTabNumber] = useState<number>(0);
+	const plan = usePlanState();
 
-	const handleTabClick = (event: any, changeTab: any) => {
+	if(!plan) return null;
+	const [tabNumber, setTabNumber] = useState<number>(0);
+	const [result, setResult] = useState<AwardInfoType | undefined>(undefined);
+
+	useEffect(() => {
+		fetchResult();
+	},[]);
+
+	const handleTabClick = (event: any, changeTab: number) => {
 		setTabNumber(changeTab);
 	};
+	
+	const fetchResult = async () => {
+		const API_PATH = `/api/time/${plan.meetId}/mostleast`;
+		const {data} = await axios.get(`${API_HOST}${API_PATH}`, {
+			withCredentials: true
+		});
+
+		console.log(data);
+		setResult(data);
+	}
+	console.log(result);
 
 	return (
 		<>
@@ -46,13 +69,33 @@ export const ResultTab = () => {
 				tab = {tabNumber}
 				index = {0}
 			>
-				<RankCard />
+				{
+					result?.mostTime?.map((timeInfo : AwardType, index: number) => (
+						<RankCard
+							key={timeInfo.key}
+							date={timeInfo.date}
+							time={timeInfo.time}
+							users={timeInfo.users}
+							index={index}
+						/>
+					))
+				}
 			</TabPanel>
 			<TabPanel
 				tab = {tabNumber}
 				index = {1}
 			>
-				<RankCard />
+				{
+					result?.leastTime?.map((timeInfo : AwardType, index: number) => (
+						<RankCard
+							key={timeInfo.key}
+							date={timeInfo.date}
+							time={timeInfo.time}
+							users={timeInfo.users}
+							index={index}
+						/>
+					))
+				}
 			</TabPanel>
 		</>
 	);

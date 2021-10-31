@@ -1,23 +1,30 @@
 import React from 'react';
+import { AwardType } from '../../Main/Type';
 import "../../scss/component/_rankcard.scss";
 
-export const RankCard = () => {
-	const index  = 1;
-	const timeRange  = "10:00PM ~ 11:00PM";
-	const canDo : string[] = ["우희은", "김수람", "이소정", "박미현"];
+interface RankCardProp extends AwardType{
+	index: number,
+}
+
+export const RankCard = ({
+	date,
+	time,
+	users,
+	index,
+} : RankCardProp) => {
 	const cantDo : string[] = ["조은학", "홍영주"];
 	return (
 		<div className="rank-card">
 			<div className="rank-title">
-				<p>{index}</p><p>{timeRange}</p>
+				<p>{index}</p><p>{`${date} ${time}`}</p>
 			</div>
 			<div className="rank-people">
 				<div>
 					<img src="/img/people_can.png" alt="되는 사람"/>
-					<p>{`: ${canDo.length}`}</p>
+					<p>{`: ${users.length}`}</p>
 				</div>
 				<div className="people-list">
-					{canDo.map((people, index) => <div key={index}>{people}</div>)}
+					{users.map((people, index) => <div key={index}>{people}</div>)}
 				</div>
 			</div>
 			<div className="rank-people">

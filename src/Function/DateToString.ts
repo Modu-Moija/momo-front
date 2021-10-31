@@ -1,3 +1,9 @@
+
+function makeOverTwo(str: string){
+	if(str.length > 2) return str.substr(0, 2);
+	else if(str.length < 2) return `0${str}`;
+	else return str;
+}
 export function DateToMonthDayString(date : Date){
 	let day = "";
 	switch(date.getDay()){
@@ -9,14 +15,26 @@ export function DateToMonthDayString(date : Date){
 	case 5 : day = "금요일"; break;
 	case 6 : day = "토요일"; break;
 	}
-	return `${date.getUTCMonth()+1}/${date.getUTCDate()+1}(${day})`;
+	const monthStr = makeOverTwo((date.getUTCMonth()+1).toString());
+	const dateStr = makeOverTwo((date.getUTCDate()+1).toString());
+
+	return `${monthStr}-${dateStr}(${day})`;
 }
 export function DateToMonthDateString(date : Date){
-	return `${date.getUTCMonth()+1}/${date.getUTCDate()+1}`;
+	const monthStr = makeOverTwo((date.getUTCMonth()+1).toString());
+	const dateStr = makeOverTwo((date.getUTCDate()+1).toString());
+	return `${monthStr}-${dateStr}`;
 }
 export function DateToYearDateString(date : Date){
-	return `${date.getUTCFullYear()}/${date.getUTCMonth()+1}/${date.getUTCDate()+1}`;
+	const yearStr = date.getUTCFullYear().toString();
+	const monthStr = makeOverTwo((date.getUTCMonth()+1).toString());
+	const dateStr = makeOverTwo((date.getUTCDate()+1).toString());
+	return `${yearStr}-${monthStr}-${dateStr}`;
+
 }
 export function DateToSmallYearDateString(date : Date){
-	return `${date.getUTCFullYear().toString().substr(2,2)}/${date.getUTCMonth()+1}/${date.getUTCDate()+1}`;
+	const yearStr = date.getUTCFullYear().toString().substr(2,2);
+	const monthStr = makeOverTwo((date.getUTCMonth()+1).toString());
+	const dateStr = makeOverTwo((date.getUTCDate()+1).toString());
+	return `${yearStr}-${monthStr}-${dateStr}`;
 }

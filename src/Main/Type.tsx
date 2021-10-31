@@ -49,3 +49,16 @@ export type TimeListType = {
 }
 export type TimeArrayType = [boolean];
 export type EventType = React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>;
+
+export type AwardInfoType = {
+	meetId: string,
+	leastTime : AwardType[],
+	mostTime : AwardType[],
+}
+export interface AwardType{
+	date: string,
+	key?: string,
+	num?: number,
+	time: string,
+	users: string[],
+}
