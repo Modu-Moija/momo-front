@@ -4,5 +4,6 @@ export * from "./PageTitle";
 export * from "./CalendarComponent";
 export * from "./FAQmodal";
 export * from "./Result";
-export * from "./LinkModal";
-export * from "./SettingModal";
+export * from "./LinkModal"; // 컴포넌트화 전
+export * from "./SettingModal"; // 컴포넌트화 전
+export * from "./ModalBox"; // 컴포넌트

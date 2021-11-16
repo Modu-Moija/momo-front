@@ -1,0 +1,30 @@
+@import "../base/variable";
+@import "../base/mixin";
+@import "../base/font";
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .setting-container {
+    width: 70%;
+    height: 30%;
+    background-color: white;
+    .setting-close {
+      display: flex;
+      justify-content: flex-end;
+      .close-icon {
+        z-index: 1;
+        font-size: 2em;
+        color: #{$purple};
+      }
+    }
+    .setting-content {
+      text-align: center;
+    }
+    .setting-button {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
