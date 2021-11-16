@@ -7,9 +7,14 @@
   align-items: center;
   justify-content: center;
   .setting-container {
-    width: 70%;
-    height: 30%;
+    padding: 0.5rem;
+    width: 80%;
+    height: 35%;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Dabanggu", sans-serif;
     .setting-close {
       display: flex;
       justify-content: flex-end;
@@ -19,12 +24,26 @@
         color: #{$purple};
       }
     }
+    .check-img {
+      text-align: center;
+      .check-icon {
+        font-size: 4em;
+        color: #{$purple};
+      }
+    }
     .setting-content {
       text-align: center;
     }
     .setting-button {
-      display: flex;
-      justify-content: center;
+      text-align: center;
+      margin: 1rem;
+      .copy-link {
+        border: 1px solid;
+        padding: 0.8rem;
+        background-color: #{$purple};
+        color: white;
+        font-family: "Dabanggu", sans-serif;
+      }
     }
   }
 }

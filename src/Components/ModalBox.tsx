@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { Close, CheckCircle } from "@material-ui/icons";
 import "../scss/component/_modal.scss";
 
 type Props = {
@@ -22,9 +22,11 @@ export const ModalBox = ({
 		<Modal open={open} onClose={onClose} className="setting">
 			<div className="setting-container">
 				<div className="setting-close">
-					<CloseIcon className="close-icon" onClick={onClose} />
+					<Close className="close-icon" onClick={onClose} />
 				</div>
-				<div className="check-img">이미지</div>
+				<div className="check-img">
+					<CheckCircle className="check-icon" />
+				</div>
 				<div className="setting-content">
 					{text.split("\n").map((txt) => (
 						<>
