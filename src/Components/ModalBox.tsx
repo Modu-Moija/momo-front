@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "@material-ui/core";
 import { Close, CheckCircle } from "@material-ui/icons";
 import "../scss/component/_modal.scss";
+import { NewLine } from "../utils/NewLine";
 
 type Props = {
   text: string;
@@ -28,12 +29,14 @@ export const ModalBox = ({
 					<CheckCircle className="check-icon" />
 				</div>
 				<div className="setting-content">
-					{text.split("\n").map((txt) => (
+					{NewLine(text)}
+					{/* 원래코드 */}
+					{/* {text.split("\n").map((txt) => (
 						<>
 							{txt}
 							<br />
 						</>
-					))}
+					))} */}
 				</div>
 				<div className="setting-button">
 					<button onClick={buttonLink} className="copy-link">
