@@ -1,12 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import { PageTitle } from '../Components';
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { DateRange } from "react-date-range";
+import { PageTitle, ModalBox, FAQmodal } from "../Components";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import "../scss/pages/setting.scss";
-import axios from 'axios';
-import { API_HOST } from '../Common';
+import axios from "axios";
+import { API_HOST } from "../Common";
 
 const Setting = () => {
 	const name = "";
@@ -19,44 +19,47 @@ const Setting = () => {
 	const [range, setRange] = useState([
 		{
 			startDate: new Date(), // default를 빈 값으로 하고 싶은데,,,,
-			endDate: new Date(), 
-			key : 'selection',
-		}
+			endDate: new Date(),
+			key: "selection",
+		},
 	]);
-	const [dates, setDates] = useState([""])
-	const [center, setCenter] = useState(false);
-	const [online, setOnline] = useState(false);
-  
-	const handleRange = (item : any) => {
+	const [dates, setDates] = useState([""]);
+	const [center, setCenter] = useState<boolean>(false);
+	const [online, setOnline] = useState<boolean>(false);
+	const [url, setUrl] = useState("");
+	const [showSetting, setShowSetting] = useState<boolean>(false);
+	const [showLink, setShowLink] = useState<boolean>(false);
+	const [showFAQ, setShowFAQ] = useState<boolean>(false);
+
+	const handleRange = (item: any) => {
 		setRange([item.selection]);
 		// console.log(item);
-    
-		// getMonth
-		let startGetMonth  = item["selection"].startDate.getMonth()+1;
-		startGetMonth  = startGetMonth < 10 ? `0${startGetMonth}` : startGetMonth; 
-		let endGetMonth = item["selection"].endDate.getMonth()+1;
-		endGetMonth  = endGetMonth < 10 ? `0${endGetMonth}` : endGetMonth; 
 
-		// getDate 
+		// getMonth
+		let startGetMonth = item["selection"].startDate.getMonth() + 1;
+		startGetMonth = startGetMonth < 10 ? `0${startGetMonth}` : startGetMonth;
+		let endGetMonth = item["selection"].endDate.getMonth() + 1;
+		endGetMonth = endGetMonth < 10 ? `0${endGetMonth}` : endGetMonth;
+
+		// getDate
 		let startGetDate = item["selection"].startDate.getDate();
-		startGetDate  = startGetDate < 10 ? `0${startGetDate}` : startGetDate; 
-		let endGetDate  = item["selection"].endDate.getDate();
-		endGetDate  = endGetDate < 10 ? `0${endGetDate}` : endGetDate; 
-    
-		// getYear 
+		startGetDate = startGetDate < 10 ? `0${startGetDate}` : startGetDate;
+		let endGetDate = item["selection"].endDate.getDate();
+		endGetDate = endGetDate < 10 ? `0${endGetDate}` : endGetDate;
+
+		// getYear
 		const startGetYear = item["selection"].startDate.getFullYear();
 		const endGetYear = item["selection"].endDate.getFullYear();
-    
+
 		// string
-		const startDate  = `${startGetYear}-${startGetMonth}-${startGetDate}`
-		const endDate = `${endGetYear}-${endGetMonth}-${endGetDate}`
+		const startDate = `${startGetYear}-${startGetMonth}-${startGetDate}`;
+		const endDate = `${endGetYear}-${endGetMonth}-${endGetDate}`;
 		// console.log(startDate, endDate);
 		setDates([startDate, endDate]);
-	}
-
+	};
 
 	// 일정이름
-	const handleTitleChange = (e : any) => {
+	const handleTitleChange = (e: any) => {
 		setTitle(e.target.value);
 		// console.log(e.target.value);
 	};
@@ -67,49 +70,70 @@ const Setting = () => {
 		Times.push(i);
 	}
 	const amTimeList = Times.map((amTime, i) => (
-		<option value={`${amTime}:00`} key={i}>오전{amTime}시</option>
+		<option value={`${amTime}:00`} key={i}>
+			오전{amTime}시
+		</option>
 	));
 	const pmTimeList = Times.map((pmTime, i) => (
-		<option value={`${pmTime + 12}:00`} key={i}>오후{pmTime}시</option>
+		<option value={`${pmTime + 12}:00`} key={i}>
+			오후{pmTime}시
+		</option>
 	));
 
-	const handleStartChange = (e : any) => {
+	const handleStartChange = (e: any) => {
 		setStart(e.target.value);
-	}
-  
-	const handleEndChange = (e : any) => {
-		setEnd(e.target.value)
+	};
+
+	const handleEndChange = (e: any) => {
+		setEnd(e.target.value);
 		// console.log(`${start} and ${e.target.value}`);
-		if (parseInt(start)>=parseInt(e.target.value)) {
+		if (parseInt(start) >= parseInt(e.target.value)) {
 			alert("시간을 다시 설정해주세요.");
 			setEnd("");
 		}
-	}
+	};
 
-	const handleGapChange = (e : any) => {
-		setGap(parseInt(e.target.value))
+	const handleGapChange = (e: any) => {
+		setGap(parseInt(e.target.value));
 		// console.log(typeof(parseInt(e.target.value)));
-	}
+	};
 
-
-	const handleDisabled = (date:Date) => {
-		const now = new Date()
-		if (date > new Date(now.setDate(now.getDate() - 1))) // 오늘 날짜가 더 이전이면 활성화
+	const handleDisabled = (date: Date) => {
+		const now = new Date();
+		if (date > new Date(now.setDate(now.getDate() - 1)))
+		// 오늘 날짜가 더 이전이면 활성화
 			return false; // 활성화
 		return true; // 아니면 비활성화
-	}
+	};
 
-	const handleOnlineChecked = (e : any) => {
+	const handleOnlineChecked = (e: any) => {
 		// console.log(checked);
 		setOnline(!online); // 반대로 입력됨
-	}
+	};
 
-	const handleCenterChecked = (e : any) => {
+	const handleCenterChecked = (e: any) => {
 		// console.log(checked);
 		setCenter(!center); // 반대로 입력됨
-	}
+	};
 
-	const handleSubmit = (e : any) => {
+	const closeLink = () => {
+		window.location.href = `result/${url}`;
+		setShowLink(false);
+	};
+
+	const copyLink = () => {
+		setShowSetting(false);
+		setShowLink(true);
+	};
+
+	const openFAQModal = () => {
+		setShowFAQ(true);
+	};
+	const closeFAQModal = () => {
+		setShowFAQ(false);
+	};
+
+	const handleSubmit = () => {
 		// const headers = {
 		//   "Content-Type": "application/json",
 		// };
@@ -117,49 +141,46 @@ const Setting = () => {
 		// const URL = "https://momoapi.azurewebsites.net"
 
 		const data = {
-			"center" : center,
-			"dates" : dates,
-			"end" : end,
-			"gap" : gap,
-			"start" : start,
-			"title" : title,
-			"video" : online,
-		}
+			center: center,
+			dates: dates,
+			end: end,
+			gap: gap,
+			start: start,
+			title: title,
+			video: online,
+		};
 
-		axios.post(`${API_HOST}/api/meet`, data, {
-			headers: {
-				// 'Access-Control-Allow-Origin' : '*',
-				'Content-Type': 'application/json',
-			}
-		})
+		axios
+			.post(`${API_HOST}/api/meet`, data, {
+				headers: {
+					// 'Access-Control-Allow-Origin' : '*',
+					"Content-Type": "application/json",
+				},
+			})
 			.then((response) => {
-				console.log(response);
-				const url = response.data.data;
-				// console.log(url);
-				window.location.href = `result/${url}`;
+				// console.log(response);
+				setUrl(response.data.data);
+				setShowSetting(true);
+				// const url = response.data.data;
+				// window.location.href = `result/${url}`;
 			})
 			.catch((error) => {
 				console.log(error);
 				const status = error?.response?.status;
 				if (status === undefined) {
-					console.dir(
-						"데이터 오류" + JSON.stringify(error)
-					);
-				} else if(status === 400) {
+					console.dir("데이터 오류" + JSON.stringify(error));
+				} else if (status === 400) {
 					console.dir("400에러");
-				} else if(status === 500) {
+				} else if (status === 500) {
 					console.dir("내부 서버 오류");
 				}
-			})
-	}
+			});
+	};
 
 	return (
 		<div className="create-container">
 			<div className="create-title">
-				<PageTitle
-					upperTitle={name}
-					title={headerTitle}
-				/>
+				<PageTitle upperTitle={name} title={headerTitle} />
 			</div>
 			<div className="create-setting">
 				<div className="create-calender">
@@ -175,11 +196,11 @@ const Setting = () => {
 					<div className="create-content-box">
 						{/* 일정이름 */}
 						<div className="create-plan-name">
-							<input 
-								placeholder = "일정 이름을 작성해주세요."
+							<input
+								placeholder="일정 이름을 작성해주세요."
 								value={title}
 								name="title"
-								onChange = {handleTitleChange}
+								onChange={handleTitleChange}
 							/>
 						</div>
 
@@ -207,7 +228,7 @@ const Setting = () => {
 								name="end"
 								value={end}
 								onChange={handleEndChange}
-							>              
+							>
 								<option aria-label="None" value="">
 									끝시간
 								</option>
@@ -239,18 +260,53 @@ const Setting = () => {
 
 						<div className="create-option">
 							<div className="form-check form-switch create-center">
-								<input className="form-check-input" type="checkbox" id="center" onChange={handleCenterChecked}/>
-								<label className="form-check-label" htmlFor="center">중간지점도 볼래요!</label>
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="center"
+									onChange={handleCenterChecked}
+								/>
+								<label className="form-check-label" htmlFor="center">
+									중간지점도 볼래요!
+								</label>
 							</div>
 							<div className="form-check form-switch create-online">
-								<input className="form-check-input" type="checkbox" id="online" onChange={handleOnlineChecked}/>
-								<label className="form-check-label" htmlFor="online">화상회의로 진행할래요!</label>
+								<input
+									className="form-check-input"
+									type="checkbox"
+									id="online"
+									onChange={handleOnlineChecked}
+								/>
+								<label className="form-check-label" htmlFor="online">
+									화상회의로 진행할래요!
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="create-create-btn" onClick={handleSubmit}>
 						<button>일정 생성하기</button>
 					</div>
+					<ModalBox
+						open={showSetting}
+						onClose={closeLink}
+						buttonLink={copyLink}
+						text={`[${title}]일정이 생성되었습니다.\n친구에게 공유해 일정을 공유해보세요 :)`}
+						button={"링크 복사하기"}
+						url={url}
+					/>
+					<ModalBox
+						open={showLink}
+						onClose={closeLink}
+						buttonLink={closeLink}
+						text={"링크가 복사되었습니다."}
+						button={"확인"}
+						url={url}
+					/>
+					{/* FAQ */}
+					<button id="faq" onClick={openFAQModal}>
+						?
+					</button>
+					<FAQmodal open={showFAQ} onClose={closeFAQModal} />
 				</div>
 			</div>
 		</div>

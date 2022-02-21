@@ -1,0 +1,53 @@
+@import "../base/variable";
+@import "../base/mixin";
+@import "../base/font";
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .setting-container {
+    padding: 0.5rem;
+    width: 80%;
+    height: 35%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Dabanggu", sans-serif;
+    @include desktop() {
+      width: 35%;
+      height: 40%;
+    }
+    .setting-close {
+      display: flex;
+      justify-content: flex-end;
+      .close-icon {
+        z-index: 1;
+        font-size: 2em;
+        color: #{$purple};
+      }
+    }
+    .check-img {
+      text-align: center;
+      .check-icon {
+        font-size: 4em;
+        color: #{$purple};
+      }
+    }
+    .setting-content {
+      text-align: center;
+    }
+    .setting-button {
+      text-align: center;
+      margin: 1rem;
+      .copy-link {
+        border: 1px solid;
+        padding: 0.8rem;
+        background-color: #{$purple};
+        color: white;
+        font-family: "Dabanggu", sans-serif;
+      }
+    }
+  }
+}
